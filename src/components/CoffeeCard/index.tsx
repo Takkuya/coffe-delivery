@@ -9,12 +9,12 @@ import {
   CoffeeImgWrapper,
   CurrencyText,
   FooterWrapper,
-  IncreaseOrDescreseCoffeeQuantityWrapper,
   Price,
   PriceWrapper,
 } from './styles'
 
-import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { ShoppingCartSimple } from 'phosphor-react'
+import { IncreaseOrDecreaseCoffeeButton } from '../IncreaseOrDecreaseCoffeQuantityButton'
 
 type CoffeeType = {
   img: string
@@ -52,15 +52,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
           <Price>{price}</Price>
         </PriceWrapper>
         <ButtonsWrapper>
-          <IncreaseOrDescreseCoffeeQuantityWrapper>
-            <button>
-              <Minus size={16} weight="bold" />
-            </button>
-            <span>1</span>
-            <button>
-              <Plus size={16} weight="bold" />
-            </button>
-          </IncreaseOrDescreseCoffeeQuantityWrapper>
+          <IncreaseOrDecreaseCoffeeButton />
           <CartBtn>
             <ShoppingCartSimple size={22} weight="fill" />
           </CartBtn>

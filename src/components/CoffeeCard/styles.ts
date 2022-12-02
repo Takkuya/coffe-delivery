@@ -7,7 +7,7 @@ export const CoffeeCardContainer = styled.section`
   justify-content: center;
 
   background: ${(props) => props.theme['base-card']};
-  border-radius: 8px 50px 8px 50px;
+  border-radius: 8px 36px 8px 36px;
 
   max-width: 16rem;
 `

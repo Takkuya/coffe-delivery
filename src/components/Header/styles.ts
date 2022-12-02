@@ -14,7 +14,38 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     gap: 0.75rem;
+
+    a {
+      padding: 0.63rem;
+      background-color: ${(props) => props.theme['yellow-light']};
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 8px;
+      border: 0;
+
+      svg {
+        color: ${(props) => props.theme['yellow-dark']};
+      }
+    }
   }
+`
+
+export const CartItensQuantity = styled.span`
+  margin: -0.5rem -10rem 0 2rem;
+  position: absolute;
+
+  background-color: ${(props) => props.theme['yellow-dark']};
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: ${(props) => props.theme.background};
+
+  border-radius: 100%;
+  padding: 0.25rem 0.4rem;
+
+  width: 20px;
+  height: 20px;
 `
 
 export const LocationBadget = styled.div`
@@ -33,17 +64,5 @@ export const LocationBadget = styled.div`
     color: ${(props) => props.theme.purple};
   }
 `
-export const CartButton = styled.button`
-  padding: 0.63rem;
-  background-color: ${(props) => props.theme['yellow-light']};
 
-  display: flex;
-  align-items: center;
-
-  border-radius: 8px;
-  border: 0;
-
-  svg {
-    color: ${(props) => props.theme['yellow-dark']};
-  }
-`
+export const ButtonWrapper = styled.div``

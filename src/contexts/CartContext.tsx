@@ -5,11 +5,18 @@ type CartContextProviderProps = {
   children: ReactNode
 }
 
-type CoffeeInCartProps = {
-  id: string
+export type CoffeeInCartProps = {
+  id: number
   name: string
-  image: string
+  img: string
   quantity: number
+  totalPrice: number
+}
+
+type handleAddCoffeeToCartProps = Pick<
+  CoffeeInCartProps,
+  'id' | 'name' | 'img' | 'quantity'
+> & {
   price: number
 }
 
@@ -20,7 +27,7 @@ type CartContextType = {
     name,
     quantity,
     price,
-  }: CoffeeInCartProps) => void
+  }: handleAddCoffeeToCartProps) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -28,20 +35,18 @@ export const CartContext = createContext({} as CartContextType)
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [itemsInCart, setItemsInCart] = useState({})
 
-  console.log(itemsInCart)
-
   function handleAddCoffeeToCart({
     id,
     name,
     quantity,
-    image,
+    img,
     price,
-  }: CoffeeInCartProps) {
+  }: handleAddCoffeeToCartProps) {
     const totalPrice = quantity * price
 
     setItemsInCart({
       ...itemsInCart,
-      [id]: { name, image, quantity, totalPrice },
+      [id]: { name, img, quantity, totalPrice },
     })
   }
 

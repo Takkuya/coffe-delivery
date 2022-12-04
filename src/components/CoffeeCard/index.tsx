@@ -43,9 +43,9 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
     handleAddCoffeeToCart({
       id,
       name,
-      image: img,
-      quantity: coffeeCount,
       price,
+      img,
+      quantity: coffeeCount,
     })
   }
 

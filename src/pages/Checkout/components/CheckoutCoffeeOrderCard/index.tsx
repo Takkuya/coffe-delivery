@@ -9,24 +9,19 @@ import {
 import { Trash } from 'phosphor-react'
 import { useState } from 'react'
 import { IncreaseOrDecreaseCoffeeQuantityButton } from '../../../../components/IncreaseOrDecreaseCoffeeQuantityButton'
-import { CoffeeType } from '../../../../components/Coffees'
+import { CoffeeInCartProps } from '../../../../contexts/CartContext'
 
-type CheckoutCoffeeOrderCardProps = CoffeeType & {
-  id: string
-  name: string
-  price: number
-  image: string
+type CheckoutCoffeeOrderCardProps = {
+  coffee: CoffeeInCartProps
   quantity: number
 }
 
 export const CheckoutCoffeeOrderCard = ({
-  id,
-  name,
-  price,
-  image,
+  coffee,
   quantity,
 }: CheckoutCoffeeOrderCardProps) => {
   const [coffeeCount, setCoffeeCount] = useState(1)
+  const { name, totalPrice, img } = coffee
 
   function increaseCoffeeCount() {
     setCoffeeCount(coffeeCount + 1)
@@ -42,11 +37,11 @@ export const CheckoutCoffeeOrderCard = ({
 
   return (
     <CheckoutCoffeeOrderCardContainer>
-      <img src={image} alt="" />
+      <img src={img} alt="" />
       <InformationWrapper>
         <TextsWrapper>
           <p>{name}</p>
-          <span>RS {price.toFixed(2)}</span>
+          <span>RS {totalPrice.toFixed(2)}</span>
         </TextsWrapper>
         <ButtonsWrapper>
           <IncreaseOrDecreaseCoffeeQuantityButton

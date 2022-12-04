@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { coffees } from '../../../../components/Coffees'
 import { CartContext } from '../../../../contexts/CartContext'
 import { CheckoutCoffeeOrderCard } from '../CheckoutCoffeeOrderCard'
 import {
@@ -17,24 +18,25 @@ export const SelectedCoffees = () => {
   const itemsInCartArray = Object.entries(itemsInCart).map(([id, coffees]) => {
     return Object.assign({ id, coffees })
   })
-  console.log('aaa', itemsInCartArray)
 
   return (
     <SelectedCoffeesContainer>
       <h3>Cafés selecionados</h3>
-
       <SelectedCoffeesWrapper>
         <CardsWrapper>
           {itemsInCartArray.map((coffee) => {
             return (
               <CheckoutCoffeeOrderCard
-                key={coffee.coffees.id}
-                id={coffee.coffees.id}
-                image={coffee.coffees.image}
-                name={coffee.coffees.name}
-                price={coffee.coffees.totalPrice}
+                key={coffee.id}
+                coffee={coffee.coffees}
                 quantity={coffee.coffees.quantity}
               />
+
+              //   <CheckoutCoffeeOrderCard
+              //   key={coffee.id}
+              //   coffee={coffees[coffee.id]}
+              //   quantity={coffee.coffees.quantity}
+              // />
             )
           })}
         </CardsWrapper>

@@ -14,23 +14,42 @@ import {
 } from './styles'
 
 import { ShoppingCartSimple } from 'phosphor-react'
-import { IncreaseOrDecreaseCoffeeButton } from '../IncreaseOrDecreaseCoffeQuantityButton'
-
-type CoffeeType = {
-  img: string
-  badgets: string[]
-  name: string
-  description: string
-  price: string
-}
+import { useContext, useState } from 'react'
+import { IncreaseOrDecreaseCoffeeQuantityButton } from '../IncreaseOrDecreaseCoffeeQuantityButton'
+import { CartContext } from '../../contexts/CartContext'
+import { CoffeeType } from '../Coffees'
 
 type CoffeeCardProps = {
   Coffee: CoffeeType
 }
 
 export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
-  console.log(Coffee)
-  const { img, badgets, name, description, price } = Coffee
+  const { id, img, badgets, name, description, price } = Coffee
+  const { handleAddCoffeeToCart } = useContext(CartContext)
+
+  const [coffeeCount, setCoffeeCount] = useState(1)
+
+  function increaseCoffeeCount() {
+    setCoffeeCount(coffeeCount + 1)
+  }
+
+  function decreaseCoffeeCount() {
+    if (coffeeCount > 1) {
+      setCoffeeCount(coffeeCount - 1)
+    }
+  }
+
+  function addCoffeeToCart() {
+    handleAddCoffeeToCart({
+      id,
+      name,
+      image: img,
+      quantity: coffeeCount,
+      price,
+    })
+  }
+
+  const coffeeCountIsLessOrEqualThanOne = coffeeCount <= 1
 
   return (
     <CoffeeCardContainer>
@@ -49,11 +68,16 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
       <FooterWrapper>
         <PriceWrapper>
           <CurrencyText>R$</CurrencyText>
-          <Price>{price}</Price>
+          <Price>{price.toFixed(2)}</Price>
         </PriceWrapper>
         <ButtonsWrapper>
-          <IncreaseOrDecreaseCoffeeButton />
-          <CartBtn>
+          <IncreaseOrDecreaseCoffeeQuantityButton
+            coffeeCount={coffeeCount}
+            onIncreaseCoffeeCount={increaseCoffeeCount}
+            onDecreaseCoffeeCount={decreaseCoffeeCount}
+            coffeeCountIsLessOrEqualThanOne={coffeeCountIsLessOrEqualThanOne}
+          />
+          <CartBtn onClick={addCoffeeToCart}>
             <ShoppingCartSimple size={22} weight="fill" />
           </CartBtn>
         </ButtonsWrapper>

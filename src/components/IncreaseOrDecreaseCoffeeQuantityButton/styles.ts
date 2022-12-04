@@ -18,13 +18,18 @@ export const IncreaseOrDescreseCoffeeButtonWrapper = styled.div`
     line-height: 0;
     background: transparent;
     cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
   }
 
   svg {
     color: ${(props) => props.theme.purple};
     transition: 0.2s all;
 
-    &:hover {
+    svg:not(:disabled):hover {
       color: ${(props) => props.theme['purple-dark']};
     }
   }

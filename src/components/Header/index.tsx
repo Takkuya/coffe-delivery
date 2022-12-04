@@ -7,8 +7,14 @@ import {
 import LogoSvg from '../../assets/Logo.svg'
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
 
 export const Header = () => {
+  const { itemsInCart } = useContext(CartContext)
+
+  const itemsInCartLength = Object.values(itemsInCart).length
+
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -19,10 +25,14 @@ export const Header = () => {
           <MapPin size={22} weight="fill" /> Porto Alegre, RS
         </LocationBadget>
         <ButtonWrapper>
-          {/* <CartItensQuantity>3</CartItensQuantity> */}
-          <NavLink to="/checkout">
-            <ShoppingCart size={22} weight="fill" />
-          </NavLink>
+          {itemsInCartLength !== 0 ? (
+            <>
+              <CartItensQuantity>{itemsInCartLength}</CartItensQuantity>
+              <NavLink to="/checkout">
+                <ShoppingCart size={22} weight="fill" />
+              </NavLink>
+            </>
+          ) : null}
         </ButtonWrapper>
       </nav>
     </HeaderContainer>

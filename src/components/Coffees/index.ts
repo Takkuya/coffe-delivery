@@ -13,130 +13,143 @@ import latte from '../../assets/imgs/coffee/latte.png'
 import macchiato from '../../assets/imgs/coffee/macchiato.png'
 import mochaccino from '../../assets/imgs/coffee/mochaccino.png'
 
-export type CoffeCardProps = {
+export type CoffeeType = {
+  id: string
   name: string
   badgets: string[]
   description: string
-  img: HTMLImageElement
+  img: string
   price: number
 }
 
-export const coffees = [
-  {
+export const coffees = {
+  1: {
     name: 'Expresso Tradicional',
     badgets: ['Tradicional'],
     description: 'O tradicional café feito com água quente e grãos moídos',
     img: expresso,
-    price: '5,00',
+    price: 5.0,
   },
-  {
+  2: {
     name: 'Expresso Americano',
     badgets: ['Tradicional'],
     description: 'Expresso diluído, menos intenso que o tradicional',
     img: americano,
-    price: '4,00',
+    price: 4.0,
   },
-  {
+
+  3: {
     name: 'Expresso Cremoso',
     badgets: ['Tradicional'],
     description: 'Café expresso tradicional com espuma cremosa',
     img: expressoCremoso,
-    price: '6,00',
+    price: 6.0,
   },
-  {
+
+  4: {
     name: 'Expresso Gelado',
     badgets: ['Tradicional', 'Gelado'],
     description: 'Bebida preparada com café expresso e cubos de gelo',
     img: cafeGelado,
-    price: '7,00',
+    price: 7.0,
   },
-  {
+  5: {
     name: 'Café com Leite',
     badgets: ['Tradicional', 'Com Leite'],
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     img: cafeComLeite,
-    price: '6,00',
+    price: 6.0,
   },
-  {
+  6: {
     name: 'Latte',
     badgets: ['Tradicional', 'Com Leite'],
     description:
       'Uma dose de café expresso, com o dobro de leite e espuma cremosa',
     img: latte,
-    price: '8,00',
+    price: 8.0,
   },
-  {
+  7: {
     name: 'Capuccino',
     badgets: ['Tradicional', 'Com Leite'],
     description:
       'Bebida com canela feita de doses iguais de café, leite e espuma',
     img: cappucino,
-    price: '10,00',
+    price: 10.0,
   },
-  {
+  8: {
     name: 'Macchiato',
     badgets: ['Tradicional', 'Com Leite'],
     description:
       'Café expresso misturado com um pouco de leite quente e espuma',
     img: macchiato,
-    price: '9,00',
+    price: 9.0,
   },
-  {
+  9: {
     name: 'Mocaccino',
     badgets: ['Tradicional', 'Com Leite'],
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     img: mochaccino,
-    price: '9,00',
+    price: 9.0,
   },
-  {
+  10: {
     name: 'Chocolate Quente',
     badgets: ['Especial', 'Com Leite'],
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     img: chocolateQuente,
-    price: '10,00',
+    price: 10.0,
   },
-  {
+  11: {
     name: 'Cubano',
     badgets: ['Especial', 'Alcoólico', 'Gelado'],
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
     img: cubano,
-    price: '10,00',
+    price: 10.0,
   },
-  {
+  12: {
     name: 'Havaiano',
     badgets: ['Especial'],
     description: 'Bebida adocicada preparada com café e leite de coco',
     img: havaiano,
-    price: '9,00',
+    price: 9.0,
   },
-  {
+  13: {
     name: 'Árabe',
     badgets: ['Especial'],
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     img: arabe,
-    price: '8,00',
+    price: 8.0,
   },
-  {
+  14: {
     name: 'Irlandês',
     badgets: ['Especial', 'Alcoólico'],
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     img: irlandes,
-    price: '11,00',
+    price: 11.0,
   },
-  {
+  15: {
     name: 'Latte Vegano',
     badgets: ['Especial', 'Vegano'],
     description:
       'Uma dose de café expresso com  leite de soja e espuma cremosa',
     img: latte,
-    price: '11,00',
+    price: 11.0,
   },
-  {
+  16: {
     name: 'Americano Gelado',
     badgets: ['Tradicional', 'Gelado'],
     description: 'Bebida preparada com café expresso americano e cubos de gelo',
     img: americano,
-    price: '4,00',
+    price: 4.0,
   },
-]
+}
+
+// retorna os valores do objeto em um array, primeira valor é a chave, segundo é o valor do objeto
+export const CoffeeList: CoffeeType[] = Object.entries(coffees).map(
+  ([id, coffee]) => {
+    return {
+      ...coffee,
+      id,
+    }
+  },
+)

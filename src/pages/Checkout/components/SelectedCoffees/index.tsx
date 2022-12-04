@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
 import { CheckoutCoffeeOrderCard } from '../CheckoutCoffeeOrderCard'
 import {
   SelectedCoffeesContainer,
@@ -10,14 +12,31 @@ import {
 } from './styles'
 
 export const SelectedCoffees = () => {
+  const { itemsInCart } = useContext(CartContext)
+
+  const itemsInCartArray = Object.entries(itemsInCart).map(([id, coffees]) => {
+    return Object.assign({ id, coffees })
+  })
+  console.log('aaa', itemsInCartArray)
+
   return (
     <SelectedCoffeesContainer>
       <h3>Cafés selecionados</h3>
 
       <SelectedCoffeesWrapper>
         <CardsWrapper>
-          <CheckoutCoffeeOrderCard />
-          <CheckoutCoffeeOrderCard />
+          {itemsInCartArray.map((coffee) => {
+            return (
+              <CheckoutCoffeeOrderCard
+                key={coffee.coffees.id}
+                id={coffee.coffees.id}
+                image={coffee.coffees.image}
+                name={coffee.coffees.name}
+                price={coffee.coffees.totalPrice}
+                quantity={coffee.coffees.quantity}
+              />
+            )
+          })}
         </CardsWrapper>
         <CheckoutInfoWrapper>
           <PriceWrapper>

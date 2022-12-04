@@ -1,4 +1,3 @@
-import { IncreaseOrDecreaseCoffeeButton } from '../../../../components/IncreaseOrDecreaseCoffeQuantityButton'
 import {
   CheckoutCoffeeOrderCardContainer,
   InformationWrapper,
@@ -7,20 +6,57 @@ import {
   RemoveBtn,
 } from './styles'
 
-import coffeImg from '../../../../assets/imgs/coffee/americano.png'
 import { Trash } from 'phosphor-react'
+import { useState } from 'react'
+import { IncreaseOrDecreaseCoffeeQuantityButton } from '../../../../components/IncreaseOrDecreaseCoffeeQuantityButton'
+import { CoffeeType } from '../../../../components/Coffees'
 
-export const CheckoutCoffeeOrderCard = () => {
+type CheckoutCoffeeOrderCardProps = CoffeeType & {
+  id: string
+  name: string
+  price: number
+  image: string
+  quantity: number
+}
+
+export const CheckoutCoffeeOrderCard = ({
+  id,
+  name,
+  price,
+  image,
+  quantity,
+}: CheckoutCoffeeOrderCardProps) => {
+  const [coffeeCount, setCoffeeCount] = useState(1)
+
+  function increaseCoffeeCount() {
+    setCoffeeCount(coffeeCount + 1)
+  }
+
+  function decreaseCoffeeCount() {
+    if (coffeeCount > 1) {
+      setCoffeeCount(coffeeCount - 1)
+    }
+  }
+
+  const coffeeCountIsLessOrEqualThanOne = coffeeCount <= 1
+
   return (
     <CheckoutCoffeeOrderCardContainer>
-      <img src={coffeImg} alt="" />
+      <img src={image} alt="" />
       <InformationWrapper>
         <TextsWrapper>
-          <p>Expresso tradicional</p>
-          <span>RS 9,90</span>
+          <p>{name}</p>
+          <span>RS {price.toFixed(2)}</span>
         </TextsWrapper>
         <ButtonsWrapper>
-          <IncreaseOrDecreaseCoffeeButton />
+          <IncreaseOrDecreaseCoffeeQuantityButton
+            coffeeCount={coffeeCount}
+            onIncreaseCoffeeCount={increaseCoffeeCount}
+            onDecreaseCoffeeCount={decreaseCoffeeCount}
+            coffeeCountIsLessOrEqualThanOne={coffeeCountIsLessOrEqualThanOne}
+            currentQuantity={quantity}
+          />
+
           <RemoveBtn>
             <Trash size={16} weight="bold" /> REMOVER
           </RemoveBtn>

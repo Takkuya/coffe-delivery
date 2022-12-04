@@ -18,6 +18,7 @@ export const InformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 
   p {
     color: ${(props) => props.theme['base-subtitle']};
@@ -32,6 +33,9 @@ export const InformationWrapper = styled.div`
 export const TextsWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
   gap: 3.125rem;
 `
 

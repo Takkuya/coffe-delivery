@@ -51,6 +51,8 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
 
   const coffeeCountIsLessOrEqualThanOne = coffeeCount <= 1
 
+  const priceFormatted = price.toFixed(2)
+
   return (
     <CoffeeCardContainer>
       <CoffeeImgWrapper>
@@ -68,7 +70,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
       <FooterWrapper>
         <PriceWrapper>
           <CurrencyText>R$</CurrencyText>
-          <Price>{price.toFixed(2)}</Price>
+          <Price>{priceFormatted}</Price>
         </PriceWrapper>
         <ButtonsWrapper>
           <IncreaseOrDecreaseCoffeeQuantityButton

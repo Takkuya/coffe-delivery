@@ -27,6 +27,58 @@ export const CardsWrapper = styled.div`
   gap: 1.5rem;
 `
 
+export const EmptyCartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 12rem;
+  }
+`
+
+export const TextsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  p {
+    font-size: 1rem;
+    max-width: 20rem;
+    text-align: center;
+    color: ${(props) => props.theme['base-label']};
+  }
+`
+
+export const ProductsBtn = styled.button`
+  border: 0;
+  border-radius: 8px;
+
+  background: ${(props) => props.theme['purple-dark']};
+
+  color: ${(props) => props.theme.white};
+  font-size: 0.875rem;
+  font-weight: 800;
+
+  padding: 0.875rem;
+  transition: 0.2s all;
+
+  cursor: pointer;
+
+  &:hover {
+    background: ${(props) => props.theme.purple};
+  }
+`
+
 export const CheckoutInfoWrapper = styled.div`
   margin-top: 1.5rem;
 
@@ -76,7 +128,12 @@ export const ConfirmOrderBtn = styled.button`
 
   cursor: pointer;
 
-  &:hover {
+  &:not(:disabled):hover {
     background: ${(props) => props.theme['yellow-dark']};
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
   }
 `

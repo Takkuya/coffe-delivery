@@ -21,17 +21,13 @@ import { NavLink } from 'react-router-dom'
 export const SelectedCoffees = () => {
   const { itemsInCart } = useContext(CartContext)
 
-  const itemsInCartArray = Object.entries(itemsInCart).map(([id, coffees]) => {
-    return Object.assign({ id, coffees })
-  })
+  const itemsInCartArray = Object.entries(itemsInCart)
 
-  const getTotalCoffeesPrices = itemsInCartArray.map((coffee) => {
-    return coffee.coffees.totalPrice
-  })
-
-  const totalPriceOfAllCoffeesInCart = getTotalCoffeesPrices.reduce(
+  const totalPriceOfAllCoffeesInCart = itemsInCartArray.reduce(
     (previousValue, nextValue) => {
-      return (previousValue += nextValue)
+      const [id, { quantity }] = nextValue
+
+      return previousValue + coffees[id].price * quantity
     },
     0,
   )
@@ -58,20 +54,13 @@ export const SelectedCoffees = () => {
           </EmptyCartWrapper>
         ) : (
           <CardsWrapper>
-            {itemsInCartArray.map((coffee) => {
+            {itemsInCartArray.map(([id, coffee]) => {
               return (
                 <CheckoutCoffeeOrderCard
-                  key={coffee.id}
-                  id={coffee.id}
-                  coffee={coffee.coffees}
-                  quantity={coffee.coffees.quantity}
+                  key={id}
+                  id={id}
+                  quantity={coffee.quantity}
                 />
-
-                //   <CheckoutCoffeeOrderCard
-                //   key={coffee.id}
-                //   coffee={coffees[coffee.id]}
-                //   quantity={coffee.coffees.quantity}
-                // />
               )
             })}
           </CardsWrapper>

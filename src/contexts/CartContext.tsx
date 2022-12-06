@@ -6,20 +6,14 @@ type CartContextProviderProps = {
 }
 
 type Coffee = {
-  name: string
-  img: string
   quantity: number
-  totalPrice: number
 }
 
 export type CoffeeInCartProps = Coffee & {
   id: number
 }
 
-type HandleAddCoffeeToCartProps = Pick<
-  CoffeeInCartProps,
-  'id' | 'name' | 'img' | 'quantity'
-> & {
+type HandleAddCoffeeToCartProps = Pick<CoffeeInCartProps, 'id' | 'quantity'> & {
   price: number
 }
 
@@ -27,13 +21,9 @@ type CoffeesInCart = Record<string, Coffee>
 
 type CartContextType = {
   itemsInCart: CoffeesInCart
-  handleAddCoffeeToCart: ({
-    id,
-    name,
-    quantity,
-    price,
-  }: HandleAddCoffeeToCartProps) => void
+  handleAddCoffeeToCart: ({ id, quantity }: HandleAddCoffeeToCartProps) => void
   handleDeleteCoffeeFromCart: (id: string) => void
+  handleCoffeeCurrentQuantity: (id: string, currentQuantity: number) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -42,15 +32,9 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [itemsInCart, setItemsInCart] = useState<CoffeesInCart>({})
 
   function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
-    const { name, img, price } = coffees[id]
-
-    const totalPrice = quantity * price
-
-    console.log('itens no carrinho', itemsInCart)
-
     setItemsInCart({
       ...itemsInCart,
-      [id]: { name, img, quantity, totalPrice },
+      [id]: { quantity },
     })
   }
 
@@ -60,11 +44,21 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     setItemsInCart({ ...itemsInCart })
   }
 
-  //   function handleTotalSumOfItems() {}
+  function handleCoffeeCurrentQuantity(id: string, currentQuantity: number) {
+    setItemsInCart({
+      ...itemsInCart,
+      [id]: { quantity: currentQuantity },
+    })
+  }
 
   return (
     <CartContext.Provider
-      value={{ itemsInCart, handleAddCoffeeToCart, handleDeleteCoffeeFromCart }}
+      value={{
+        itemsInCart,
+        handleAddCoffeeToCart,
+        handleDeleteCoffeeFromCart,
+        handleCoffeeCurrentQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

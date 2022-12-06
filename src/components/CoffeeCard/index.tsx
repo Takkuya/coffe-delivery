@@ -9,13 +9,13 @@ import {
   CoffeeImgWrapper,
   CurrencyText,
   FooterWrapper,
+  IncreaseOrDescreseCoffeeButtonWrapper,
   Price,
   PriceWrapper,
 } from './styles'
 
-import { ShoppingCartSimple } from 'phosphor-react'
+import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { useContext, useState } from 'react'
-import { IncreaseOrDecreaseCoffeeQuantityButton } from '../IncreaseOrDecreaseCoffeeQuantityButton'
 import { CartContext } from '../../contexts/CartContext'
 import { CoffeeType } from '../Coffees'
 
@@ -42,9 +42,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
   function addCoffeeToCart() {
     handleAddCoffeeToCart({
       id,
-      name,
       price,
-      img,
       quantity: coffeeCount,
     })
   }
@@ -73,12 +71,18 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
           <Price>{priceFormatted}</Price>
         </PriceWrapper>
         <ButtonsWrapper>
-          <IncreaseOrDecreaseCoffeeQuantityButton
-            coffeeCount={coffeeCount}
-            onIncreaseCoffeeCount={increaseCoffeeCount}
-            onDecreaseCoffeeCount={decreaseCoffeeCount}
-            coffeeCountIsLessOrEqualThanOne={coffeeCountIsLessOrEqualThanOne}
-          />
+          <IncreaseOrDescreseCoffeeButtonWrapper>
+            <button
+              onClick={decreaseCoffeeCount}
+              disabled={coffeeCountIsLessOrEqualThanOne}
+            >
+              <Minus size={16} weight="bold" />
+            </button>
+            <span>{coffeeCount}</span>
+            <button onClick={increaseCoffeeCount}>
+              <Plus size={16} weight="bold" />
+            </button>
+          </IncreaseOrDescreseCoffeeButtonWrapper>
           <CartBtn onClick={addCoffeeToCart}>
             <ShoppingCartSimple size={22} weight="fill" />
           </CartBtn>

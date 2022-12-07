@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const HeroContainer = styled.div`
   display: flex;
@@ -17,13 +17,34 @@ export const BackgroundImg = styled.img`
 
 export const HeroContentWrapper = styled.div`
   position: absolute;
+  margin-top: 20rem;
 
   max-width: 70rem;
-  margin: 0 auto;
+  padding: 0 2rem;
 
   display: flex;
   align-items: center;
-  gap: 3.5rem;
+  justify-content: center;
+
+  img {
+    display: none;
+  }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      margin-top: 10rem;
+
+      margin: 0 auto;
+      padding: 0;
+      gap: 3.5rem;
+    }
+
+    @media (min-width: ${breakpoints.xl}) {
+      img {
+        display: block;
+      }
+    }
+  `}
 `
 
 export const TextsWrapper = styled.div`
@@ -32,8 +53,9 @@ export const TextsWrapper = styled.div`
   justify-content: center;
   gap: 1rem;
 
-  font-size: 1.25rem;
+  text-align: center;
 
+  font-size: 1.25rem;
   max-width: 37.5rem;
 
   h1 {
@@ -41,22 +63,55 @@ export const TextsWrapper = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-size: 3rem;
     color: ${(props) => props.theme['base-title']};
-    line-height: 1.3;
+    line-height: 1.1;
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      text-align: start;
+
+      margin: 0 auto;
+      gap: 1rem;
+
+      img {
+        display: block;
+      }
+
+      h1 {
+        line-height: 1.3;
+      }
+    }
+  `}
 `
 
 export const DeliveryInfoWrapper = styled.div`
-  margin-top: 4.125rem;
+  margin-top: 2.5rem;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem 2.5rem;
+
+  text-align: center;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      margin-top: 4.125rem;
+
+      text-align: start;
+    }
+  `}
 `
 
 export const DeliveryItems = styled.span`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      gap: 0.75rem;
+    }
+  `}
 `
 
 const ITEMS_ICON_COLORS = {

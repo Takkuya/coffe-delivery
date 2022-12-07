@@ -14,6 +14,7 @@ export const Header = () => {
   const { itemsInCart } = useContext(CartContext)
 
   const itemsInCartLength = Object.values(itemsInCart).length
+  const location = ''
 
   return (
     <HeaderContainer>
@@ -21,9 +22,12 @@ export const Header = () => {
         <img src={LogoSvg} alt="" />
       </NavLink>
       <nav>
-        <LocationBadget>
-          <MapPin size={22} weight="fill" /> Porto Alegre, RS
-        </LocationBadget>
+        {location === '' ? null : (
+          <LocationBadget>
+            <MapPin size={22} weight="fill" /> Porto Alegre, RS
+          </LocationBadget>
+        )}
+
         <ButtonWrapper>
           {itemsInCartLength !== 0 ? (
             <>

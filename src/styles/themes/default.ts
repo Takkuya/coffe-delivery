@@ -16,4 +16,14 @@ export const defaultTheme = {
   'base-card': '#F3F2F2',
   background: '#FAFAFA',
   white: '#FFFFFF',
-}
+
+  breakpoints: {
+    xs: '0px',
+    sm: '576px',
+    md: '768px',
+    lg: '1050px',
+    xl: '1291px',
+  },
+} as const
+
+export default defaultTheme

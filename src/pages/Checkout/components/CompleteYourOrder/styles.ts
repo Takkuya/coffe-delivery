@@ -1,11 +1,12 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const CompleteYourOrderContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
 
-  max-width: 40rem;
+  max-width: 27.5rem;
+
   margin: 0 auto;
 
   h3 {
@@ -13,6 +14,12 @@ export const CompleteYourOrderContainer = styled.div`
     font-size: 1.125rem;
     color: ${(props) => props.theme['base-subtitle']};
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      max-width: 40rem;
+    }
+  `}
 `
 
 export const FormContainer = styled.div`
@@ -55,11 +62,22 @@ export const FormWrapper = styled.form`
 
   display: grid;
   grid-template-areas:
-    'cep . .'
-    'street street street'
-    'number complement complement'
-    'neighborhood city uf';
+    'cep cep'
+    'street street'
+    'number complement'
+    'neighborhood city'
+    'uf uf';
   gap: 1rem 0.875rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      grid-template-areas:
+        'cep . .'
+        'street street street'
+        'number complement complement'
+        'neighborhood city uf';
+    }
+  `}
 `
 
 const BaseInput = styled.input`
@@ -68,13 +86,26 @@ const BaseInput = styled.input`
   border-radius: 8px;
   color: ${(props) => props.theme['base-label']};
   padding: 0.875rem;
+
+  max-width: 10.5rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      max-width: 100%;
+    }
+  `}
 `
 
-export const CepInput = styled(BaseInput)`
+const SoloInput = styled(BaseInput)`
+  max-width: 249px;
+`
+
+export const CepInput = styled(SoloInput)`
   grid-area: cep;
 `
-export const StreetInput = styled(BaseInput)`
+export const StreetInput = styled(SoloInput)`
   grid-area: street;
+  max-width: 100%;
 `
 export const NumberInput = styled(BaseInput)`
   grid-area: number;
@@ -90,19 +121,13 @@ export const CityInput = styled(BaseInput)`
 `
 export const UfInput = styled(BaseInput)`
   grid-area: uf;
-  max-width: 5rem;
-`
+  max-width: 249px;
 
-export const FormAddressWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 10% 85%;
-  gap: 0 0.875rem;
-`
-
-export const FormCityWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 30% 60% 10%;
-  gap: 0 0.875rem;
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      max-width: 5rem;
+    }
+  `}
 `
 
 export const PaymentWrapper = styled.div`

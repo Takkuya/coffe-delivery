@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
 
 const styled = { createGlobalStyle }
 
@@ -12,6 +12,10 @@ export const GlobalStyle = styled.createGlobalStyle`
   :focus {
     outline: 0;
     box-shadow: 0 0 0 2px ${(props) => props.theme.yellow};
+  }
+
+  html {
+    font-size: 70%;
   }
 
   body {
@@ -28,4 +32,12 @@ export const GlobalStyle = styled.createGlobalStyle`
     font-weight: 400;
     font-size: 1rem;
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      html {
+        font-size: 100%;
+      }
+    }
+  `}
 `

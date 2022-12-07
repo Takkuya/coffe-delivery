@@ -1,12 +1,21 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const SucessPageContainer = styled.main`
   max-width: 70rem;
   margin: 5rem auto auto auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   align-items: flex-end;
   gap: 6.25rem;
+
+  padding: 0 2.5rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0;
+    }
+  `}
 `
 
 export const ConfirmedOrderWrapper = styled.div`
@@ -98,6 +107,15 @@ export const TextWrapper = styled.div`
 
 export const IllustrationWrapper = styled.div`
   img {
-    margin-bottom: -1rem;
+    display: none;
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      img {
+        display: block;
+        margin-bottom: -1rem;
+      }
+    }
+  `}
 `

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const PaymentContainer = styled.div`
   display: flex;
@@ -39,7 +39,14 @@ export const TextsWrapper = styled.div`
 export const FormOfPaymentWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 0.875rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      flex-direction: row;
+    }
+  `}
 `
 
 export const FormOfPaymentButton = styled.button`
@@ -48,9 +55,12 @@ export const FormOfPaymentButton = styled.button`
 
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.875rem;
 
   white-space: nowrap;
+
+  width: 100%;
 
   border-radius: 8px;
   border: 0;

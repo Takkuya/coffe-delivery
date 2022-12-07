@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const CheckoutCoffeeOrderCardContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme['base-button']};
@@ -7,11 +7,19 @@ export const CheckoutCoffeeOrderCardContainer = styled.div`
   align-items: center;
   gap: 1.25rem;
 
+  max-width: 27.5rem;
+
   img {
     width: 4rem;
   }
 
   padding-bottom: 2rem;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      max-width: 40rem;
+    }
+  `}
 `
 
 export const InformationWrapper = styled.div`

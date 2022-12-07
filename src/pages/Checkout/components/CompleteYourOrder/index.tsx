@@ -5,8 +5,6 @@ import {
   CepInput,
   ComplementInput,
   CompleteYourOrderContainer,
-  FormAddressWrapper,
-  FormCityWrapper,
   FormContainer,
   FormWrapper,
   NumberInput,
@@ -27,7 +25,7 @@ export const CompleteYourOrder = () => {
           <MapPinLine size={22} />
           <TextWrapper>
             <h5>Endereço de entrega</h5>
-            <p>Informe o endereço onde desejar receber seu pedido</p>
+            <p>Informe o endereço onde deseja receber seu pedido</p>
           </TextWrapper>
         </AddressWrapper>
         <FormWrapper>

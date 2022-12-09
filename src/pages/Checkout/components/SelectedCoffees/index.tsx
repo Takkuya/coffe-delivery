@@ -79,11 +79,12 @@ export const SelectedCoffees = () => {
             <span>R$ {totalPriceOfAllCoffeesInCartFormatted}</span>
           </TotalPriceWrapper>
         </CheckoutInfoWrapper>
-        <NavLink to="/success">
-          <ConfirmOrderBtn disabled={isShoppingCartEmpty}>
-            CONFIRMAR PEDIDO
-          </ConfirmOrderBtn>
-        </NavLink>
+
+        <ConfirmOrderBtn disabled={isShoppingCartEmpty} type="submit">
+          CONFIRMAR PEDIDO
+        </ConfirmOrderBtn>
+        {/* <NavLink to="/success">
+        </NavLink> */}
       </SelectedCoffeesWrapper>
     </SelectedCoffeesContainer>
   )

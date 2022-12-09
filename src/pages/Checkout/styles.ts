@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export const CheckoutContainer = styled.main`
+export const CheckoutContainer = styled.form`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 2rem;

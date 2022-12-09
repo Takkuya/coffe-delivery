@@ -57,7 +57,7 @@ export const TextWrapper = styled.div`
   }
 `
 
-export const FormWrapper = styled.form`
+export const FormWrapper = styled.div`
   margin-top: 2.5rem;
 
   display: grid;

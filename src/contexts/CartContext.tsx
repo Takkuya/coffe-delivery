@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useState } from 'react'
-import { coffees } from '../components/Coffees'
 
 type CartContextProviderProps = {
   children: ReactNode

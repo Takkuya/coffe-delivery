@@ -1,4 +1,5 @@
 import { MapPinLine } from 'phosphor-react'
+import { useFormContext } from 'react-hook-form'
 import { Payment } from '../Payment'
 import {
   AddressWrapper,
@@ -17,6 +18,10 @@ import {
 } from './styles'
 
 export const CompleteYourOrder = () => {
+  const { register, formState } = useFormContext()
+
+  //   const legal = Object.entries(formState.errors)
+
   return (
     <CompleteYourOrderContainer>
       <h3>Complete seu pedido</h3>
@@ -29,14 +34,33 @@ export const CompleteYourOrder = () => {
           </TextWrapper>
         </AddressWrapper>
         <FormWrapper>
-          <CepInput type="number" placeholder="CEP" />
-          <StreetInput type="text" placeholder="Rua" />
-          <NumberInput type="number" placeholder="Número" />
-          <ComplementInput type="text" placeholder="Complemento" />
-          <NeighborhoodInput type="text" placeholder="Bairro" />
-          <CityInput type="text" placeholder="Cidade" />
-          <UfInput type="text" placeholder="UF" />
+          <CepInput type="text" placeholder="CEP" {...register('cep')} />
+          <StreetInput type="text" placeholder="Rua" {...register('street')} />
+          <NumberInput
+            type="text"
+            placeholder="Número"
+            {...register('homeNum')}
+          />
+          <ComplementInput
+            type="text"
+            placeholder="Complemento"
+            {...register('complement')}
+          />
+          <NeighborhoodInput
+            type="text"
+            placeholder="Bairro"
+            {...register('neighborhood')}
+          />
+          <CityInput type="text" placeholder="Cidade" {...register('city')} />
+          <UfInput type="text" placeholder="UF" {...register('uf')} />
         </FormWrapper>
+        {/* <div>
+          {legal !== {}
+            ? legal.map((lega) => {
+                return <h1>{lega}</h1>
+              })
+            : null}
+        </div> */}
       </FormContainer>
       <PaymentWrapper>
         <Payment />

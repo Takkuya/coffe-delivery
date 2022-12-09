@@ -80,14 +80,31 @@ export const FormWrapper = styled.div`
   `}
 `
 
+export const ErrorMessageWrapper = styled.div`
+  margin-top: 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+`
+
+export const ErrorMessage = styled.p`
+  color: ${(props) => props.theme.red};
+  font-weight: 400;
+  font-size: 1rem;
+`
+
 const BaseInput = styled.input`
   background-color: ${(props) => props.theme['base-input']};
   border: 1px solid ${(props) => props.theme['base-button']};
   border-radius: 8px;
-  color: ${(props) => props.theme['base-label']};
   padding: 0.875rem;
-
+  color: ${(props) => props.theme['base-text']};
   max-width: 10.5rem;
+
+  ::placeholder {
+    color: ${(props) => props.theme['base-label']};
+  }
 
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.md}) {

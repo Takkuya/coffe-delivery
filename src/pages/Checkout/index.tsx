@@ -4,21 +4,30 @@ import { CheckoutContainer } from './styles'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
+import {
+  GetUserInformationFormContext,
+  UserAddress,
+} from '../../contexts/GetUserInformationFormContext'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const getUserAddressInformationValidationSchema = zod.object({
   cep: zod
     .string()
-    .min(8, 'Informe um CEP válido')
-    .max(8, 'Informe um CEP válido'),
-  street: zod.string().min(1, 'Insira o nome de uma rua'),
-  homeNum: zod.string().min(1, 'Insira o número da sua residência'),
+    .min(8, 'CEP deve conter 8 dígitos')
+    .max(8, 'CEP deve conter 8 dígitos'),
+  street: zod.string().min(1, 'Nome da rua obrigatório'),
+  homeNum: zod.string().min(1, 'Número obrigatório'),
   complement: zod.string().optional(),
-  neighborhood: zod.string().min(1, 'Insira o nome de um bairro'),
-  city: zod.string().min(1, 'Insira o nome de uma cidade'),
-  uf: zod.string().min(2, 'Insira um UF').max(2, 'Insira um UF'),
+  neighborhood: zod.string().min(1, 'Bairro obrigatório'),
+  city: zod.string().min(1, 'Cidade obrigatório'),
+  uf: zod
+    .string()
+    .min(2, 'UF deve ter 2 caracteres')
+    .max(2, 'UF deve ter 2 caracteres'),
 })
 
-type GetUserAddressInformationData = zod.infer<
+export type GetUserAddressInformationData = zod.infer<
   typeof getUserAddressInformationValidationSchema
 >
 
@@ -36,14 +45,15 @@ export const Checkout = () => {
     },
   })
 
-  const { handleSubmit, reset, formState } = getUserAddressInformation
+  const { handleSubmit, reset } = getUserAddressInformation
+  const { getUserAddress } = useContext(GetUserInformationFormContext)
+  const navigate = useNavigate()
 
-  console.log(formState.errors)
-
-  function handleGetUserAddressInformation(data: any) {
-    console.log('log', data)
+  function handleGetUserAddressInformation(data: UserAddress) {
+    getUserAddress(data)
 
     reset()
+    navigate('/success')
   }
 
   return (

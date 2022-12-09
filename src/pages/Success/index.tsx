@@ -10,8 +10,19 @@ import {
 } from './styles'
 
 import SuccessIllustration from '../../assets/SuccessIllustration.svg'
+import { useContext } from 'react'
+import { GetUserInformationFormContext } from '../../contexts/GetUserInformationFormContext'
 
 export const Success = () => {
+  const { userInformation, paymentPreference } = useContext(
+    GetUserInformationFormContext,
+  )
+
+  const { city, homeNum, street, neighborhood, uf, complement } =
+    userInformation
+
+  console.log('informações', userInformation)
+
   return (
     <SucessPageContainer>
       <ConfirmedOrderWrapper>
@@ -26,9 +37,14 @@ export const Success = () => {
             </IconWrapper>
             <TextWrapper>
               <p>
-                Entrega em <span>Rua João Augusto Navarro, 108</span>
+                Entrega em{' '}
+                <span>
+                  {street}, {homeNum}
+                </span>
               </p>
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>
+                {neighborhood} - {city}, {uf}
+              </p>
             </TextWrapper>
           </DeliveryItemWrapper>
           <DeliveryItemWrapper>
@@ -46,7 +62,7 @@ export const Success = () => {
             </IconWrapper>
             <TextWrapper>
               <p>Pagamento na entrega</p>
-              <span>Cartão de Crédito</span>
+              <span>{paymentPreference}</span>
             </TextWrapper>
           </DeliveryItemWrapper>
         </DeliveryInformationWrapper>

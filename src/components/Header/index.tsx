@@ -9,12 +9,17 @@ import { MapPin, ShoppingCart } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../../contexts/CartContext'
+import { GetUserInformationFormContext } from '../../contexts/GetUserInformationFormContext'
 
 export const Header = () => {
   const { itemsInCart } = useContext(CartContext)
+  const { userInformation } = useContext(GetUserInformationFormContext)
+
+  const { city, uf } = userInformation
 
   const itemsInCartLength = Object.values(itemsInCart).length
-  const location = ''
+
+  const isCityNameEmpty = city === undefined
 
   return (
     <HeaderContainer>
@@ -22,9 +27,9 @@ export const Header = () => {
         <img src={LogoSvg} alt="" />
       </NavLink>
       <nav>
-        {location === '' ? null : (
+        {isCityNameEmpty ? null : (
           <LocationBadget>
-            <MapPin size={22} weight="fill" /> Porto Alegre, RS
+            <MapPin size={22} weight="fill" /> {city}, {uf}
           </LocationBadget>
         )}
 

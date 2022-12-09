@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import defaultTheme from '../../../../styles/themes/default'
 
 export const PaymentContainer = styled.div`
   display: flex;
@@ -49,8 +50,9 @@ export const FormOfPaymentWrapper = styled.div`
   `}
 `
 
-export const FormOfPaymentButton = styled.button`
-  background: ${(props) => props.theme['base-button']};
+export const FormOfPaymentButton = styled.button<{
+  isSelected: boolean
+}>`
   padding: 1rem;
 
   display: flex;
@@ -75,6 +77,13 @@ export const FormOfPaymentButton = styled.button`
   &:hover {
     background: ${(props) => props.theme['base-hover']};
   }
+
+  box-shadow: ${({ isSelected }) =>
+    isSelected
+      ? `0 0 0 2px${defaultTheme.purple}`
+      : ` 0 0 0 0 ${defaultTheme['base-label']}`};
+  background: ${({ isSelected }) =>
+    isSelected ? defaultTheme['purple-light'] : defaultTheme['base-button']};
 
   :focus {
     box-shadow: 0 0 0 2px ${(props) => props.theme.purple};

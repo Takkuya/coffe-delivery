@@ -1,4 +1,7 @@
 import { Bank, CreditCard, CurrencyDollar, Money } from 'phosphor-react'
+import { useContext, useState } from 'react'
+import { GetUserInformationFormContext } from '../../../../contexts/GetUserInformationFormContext'
+
 import {
   PaymentContainer,
   PaymentWrapper,
@@ -8,6 +11,25 @@ import {
 } from './styles'
 
 export const Payment = () => {
+  const [paymentPreference, setPaymentePreference] = useState('')
+
+  const { getFormOfPayment } = useContext(GetUserInformationFormContext)
+
+  function handleIsCreditCardBtnSelected() {
+    setPaymentePreference('Cartão de Crédito')
+    getFormOfPayment('Cartão de Crédito')
+  }
+
+  function handleIsDebitCardBtnSelected() {
+    setPaymentePreference('Cartão de Débito')
+    getFormOfPayment('Cartão de Débito')
+  }
+
+  function handleIsMoneyBtnSelected() {
+    setPaymentePreference('Dinheiro')
+    getFormOfPayment('Dinheiro')
+  }
+
   return (
     <PaymentContainer>
       <PaymentWrapper>
@@ -20,15 +42,27 @@ export const Payment = () => {
         </TextsWrapper>
       </PaymentWrapper>
       <FormOfPaymentWrapper>
-        <FormOfPaymentButton>
+        <FormOfPaymentButton
+          type="button"
+          onClick={handleIsCreditCardBtnSelected}
+          isSelected={paymentPreference === 'Credito'}
+        >
           <CreditCard size={16} />
           CARTÃO DE CRÉDITO
         </FormOfPaymentButton>
-        <FormOfPaymentButton>
+        <FormOfPaymentButton
+          type="button"
+          onClick={handleIsDebitCardBtnSelected}
+          isSelected={paymentPreference === 'Debito'}
+        >
           <Bank size={16} />
           CARTÃO DE DÉBITO
         </FormOfPaymentButton>
-        <FormOfPaymentButton>
+        <FormOfPaymentButton
+          type="button"
+          onClick={handleIsMoneyBtnSelected}
+          isSelected={paymentPreference === 'Dinheiro'}
+        >
           <Money size={16} />
           DINHEIRO
         </FormOfPaymentButton>

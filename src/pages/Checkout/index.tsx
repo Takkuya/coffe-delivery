@@ -53,6 +53,7 @@ export const Checkout = () => {
     getUserAddress(data)
 
     reset()
+
     navigate('/success')
   }
 

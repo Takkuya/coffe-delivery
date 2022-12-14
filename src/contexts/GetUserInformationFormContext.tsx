@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 type GetUserInformationFormContextProviderProps = {
   children: ReactNode
@@ -33,12 +33,39 @@ export const GetUserInformationFormProvider = ({
   )
   const [paymentPreference, setPaymentePreference] = useState('')
 
+  function getItemsFromLocalStorage() {
+    const savedAddress = localStorage.getItem(
+      '@coffee-delivery:store-user-address-1.0.0',
+    )
+
+    if (savedAddress) {
+      setUserInformation(JSON.parse(savedAddress))
+    }
+  }
+
+  useEffect(() => {
+    getItemsFromLocalStorage()
+  }, [])
+
   function getUserAddress(address: UserAddress) {
     setUserInformation(address)
+
+    const addressJSON = JSON.stringify(address)
+    localStorage.setItem(
+      '@coffee-delivery:store-user-address-1.0.0',
+      addressJSON,
+    )
   }
 
   function getFormOfPayment(formOfPayment: string) {
     setPaymentePreference(formOfPayment)
+
+    const formOfPaymentJSON = JSON.stringify(formOfPayment)
+
+    localStorage.setItem(
+      '@coffee-delivery:store-user-address-1.0.0',
+      formOfPaymentJSON,
+    )
   }
 
   return (

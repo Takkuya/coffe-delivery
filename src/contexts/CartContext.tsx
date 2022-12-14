@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 type CartContextProviderProps = {
   children: ReactNode
@@ -30,17 +30,42 @@ export const CartContext = createContext({} as CartContextType)
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [itemsInCart, setItemsInCart] = useState<CoffeesInCart>({})
 
+  function storeItemsInLocalStorage() {
+    const itemsInCartJSON = JSON.stringify(itemsInCart)
+
+    localStorage.setItem(
+      '@coffee-delivery:add-coffee-to-cart-1.0.0',
+      itemsInCartJSON,
+    )
+  }
+
+  function getItemsFromLocalStorage() {
+    const savedItemsOnCart = localStorage.getItem(
+      '@coffee-delivery:add-coffee-to-cart-1.0.0',
+    )
+
+    if (savedItemsOnCart) {
+      setItemsInCart(JSON.parse(savedItemsOnCart))
+    }
+  }
+
+  useEffect(() => {
+    getItemsFromLocalStorage()
+  }, [])
+
   function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
     setItemsInCart({
       ...itemsInCart,
       [id]: { quantity },
     })
+
+    storeItemsInLocalStorage()
   }
 
   function handleDeleteCoffeeFromCart(id: string) {
     delete itemsInCart[id]
 
-    setItemsInCart({ ...itemsInCart })
+    storeItemsInLocalStorage()
   }
 
   function handleCoffeeCurrentQuantity(id: string, currentQuantity: number) {
@@ -48,6 +73,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       ...itemsInCart,
       [id]: { quantity: currentQuantity },
     })
+    storeItemsInLocalStorage()
   }
 
   return (

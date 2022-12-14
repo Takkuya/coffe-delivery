@@ -1,15 +1,24 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const SelectedCoffeesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
+  margin: 0 auto;
+
+  max-width: 27.5rem;
 
   h3 {
     font-family: 'Baloo 2', sans-serif;
     font-size: 1.125rem;
     color: ${(props) => props.theme['base-subtitle']};
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      max-width: 40rem;
+    }
+  `}
 `
 
 export const SelectedCoffeesWrapper = styled.div`

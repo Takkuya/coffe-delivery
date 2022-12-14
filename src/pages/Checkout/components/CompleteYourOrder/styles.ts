@@ -107,7 +107,7 @@ const BaseInput = styled.input`
   }
 
   ${({ theme: { breakpoints } }) => css`
-    @media (min-width: ${breakpoints.md}) {
+    @media (min-width: ${breakpoints.lg}) {
       max-width: 100%;
     }
   `}

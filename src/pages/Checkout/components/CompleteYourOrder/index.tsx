@@ -1,6 +1,6 @@
 import { MapPinLine } from 'phosphor-react'
-import { useFormContext } from 'react-hook-form'
-import { GetUserAddressInformationData } from '../..'
+import { useFormContext, Controller } from 'react-hook-form'
+import { GetOrderInformationData } from '../..'
 import { Payment } from '../Payment'
 import {
   AddressWrapper,
@@ -21,8 +21,8 @@ import {
 } from './styles'
 
 export const CompleteYourOrder = () => {
-  const { register, formState } =
-    useFormContext<GetUserAddressInformationData>()
+  const { register, formState, control } =
+    useFormContext<GetOrderInformationData>()
 
   const errorsMessage = Object.entries(formState.errors).map(([_, error]) => {
     return error?.message
@@ -40,7 +40,19 @@ export const CompleteYourOrder = () => {
           </TextWrapper>
         </AddressWrapper>
         <FormWrapper>
-          <CepInput type="number" placeholder="CEP" {...register('cep')} />
+          <Controller
+            control={control}
+            name="cep"
+            render={({ field }) => (
+              <CepInput
+                placeholder="CEP"
+                mask="99999-999"
+                maskChar={null}
+                {...field}
+              />
+            )}
+          />
+
           <StreetInput type="text" placeholder="Rua" {...register('street')} />
           <NumberInput
             type="number"
@@ -59,7 +71,12 @@ export const CompleteYourOrder = () => {
             {...register('neighborhood')}
           />
           <CityInput type="text" placeholder="Cidade" {...register('city')} />
-          <UfInput type="text" placeholder="UF" {...register('uf')} />
+          <UfInput
+            type="text"
+            placeholder="UF"
+            {...register('uf')}
+            maxLength={2}
+          />
         </FormWrapper>
         <ErrorMessageWrapper>
           {errorsMessage.map((error, idx) => {

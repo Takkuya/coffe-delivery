@@ -1,6 +1,5 @@
 import { Bank, CreditCard, CurrencyDollar, Money } from 'phosphor-react'
-import { useContext, useState } from 'react'
-import { GetUserInformationFormContext } from '../../../../contexts/GetUserInformationFormContext'
+import { Controller, useFormContext } from 'react-hook-form'
 
 import {
   PaymentContainer,
@@ -11,24 +10,7 @@ import {
 } from './styles'
 
 export const Payment = () => {
-  const [paymentPreference, setPaymentePreference] = useState('')
-
-  const { getFormOfPayment } = useContext(GetUserInformationFormContext)
-
-  function handleIsCreditCardBtnSelected() {
-    setPaymentePreference('Cartão de Crédito')
-    getFormOfPayment('Cartão de Crédito')
-  }
-
-  function handleIsDebitCardBtnSelected() {
-    setPaymentePreference('Cartão de Débito')
-    getFormOfPayment('Cartão de Débito')
-  }
-
-  function handleIsMoneyBtnSelected() {
-    setPaymentePreference('Dinheiro')
-    getFormOfPayment('Dinheiro')
-  }
+  const { control } = useFormContext()
 
   return (
     <PaymentContainer>
@@ -41,32 +23,31 @@ export const Payment = () => {
           </p>
         </TextsWrapper>
       </PaymentWrapper>
-      <FormOfPaymentWrapper>
-        <FormOfPaymentButton
-          type="button"
-          onClick={handleIsCreditCardBtnSelected}
-          isSelected={paymentPreference === 'Credito'}
-        >
-          <CreditCard size={16} />
-          CARTÃO DE CRÉDITO
-        </FormOfPaymentButton>
-        <FormOfPaymentButton
-          type="button"
-          onClick={handleIsDebitCardBtnSelected}
-          isSelected={paymentPreference === 'Debito'}
-        >
-          <Bank size={16} />
-          CARTÃO DE DÉBITO
-        </FormOfPaymentButton>
-        <FormOfPaymentButton
-          type="button"
-          onClick={handleIsMoneyBtnSelected}
-          isSelected={paymentPreference === 'Dinheiro'}
-        >
-          <Money size={16} />
-          DINHEIRO
-        </FormOfPaymentButton>
-      </FormOfPaymentWrapper>
+      <Controller
+        control={control}
+        name="formOfPayment"
+        render={({ field }) => {
+          return (
+            <FormOfPaymentWrapper
+              onValueChange={field.onChange}
+              value={field.value}
+            >
+              <FormOfPaymentButton type="button" value="Cartão de Crédito">
+                <CreditCard size={16} />
+                CARTÃO DE CRÉDITO
+              </FormOfPaymentButton>
+              <FormOfPaymentButton type="button" value="Cartão de Débito">
+                <Bank size={16} />
+                CARTÃO DE DÉBITO
+              </FormOfPaymentButton>
+              <FormOfPaymentButton type="button" value="Dinheiro">
+                <Money size={16} />
+                DINHEIRO
+              </FormOfPaymentButton>
+            </FormOfPaymentWrapper>
+          )
+        }}
+      />
     </PaymentContainer>
   )
 }

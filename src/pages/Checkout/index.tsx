@@ -5,17 +5,14 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import {
-  GetUserInformationFormContext,
-  UserAddress,
-} from '../../contexts/GetUserInformationFormContext'
+  GetOrderInformationFormContext,
+  OrderInformation,
+} from '../../contexts/GetOrderInformationFormContext'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const getUserAddressInformationValidationSchema = zod.object({
-  cep: zod
-    .string()
-    .min(8, 'CEP deve conter 8 dígitos')
-    .max(8, 'CEP deve conter 8 dígitos'),
+const getOrderInformationValidationSchema = zod.object({
+  cep: zod.string(),
   street: zod.string().min(1, 'Nome da rua obrigatório'),
   homeNum: zod.string().min(1, 'Número obrigatório'),
   complement: zod.string().optional(),
@@ -25,15 +22,20 @@ const getUserAddressInformationValidationSchema = zod.object({
     .string()
     .min(2, 'UF deve ter 2 caracteres')
     .max(2, 'UF deve ter 2 caracteres'),
+  formOfPayment: zod.enum([
+    'Cartão de Crédito',
+    'Cartão de Débito',
+    'Dinheiro',
+  ]),
 })
 
-export type GetUserAddressInformationData = zod.infer<
-  typeof getUserAddressInformationValidationSchema
+export type GetOrderInformationData = zod.infer<
+  typeof getOrderInformationValidationSchema
 >
 
 export const Checkout = () => {
-  const getUserAddressInformation = useForm<GetUserAddressInformationData>({
-    resolver: zodResolver(getUserAddressInformationValidationSchema),
+  const getCheckoutInformation = useForm<GetOrderInformationData>({
+    resolver: zodResolver(getOrderInformationValidationSchema),
     defaultValues: {
       cep: '',
       street: '',
@@ -45,12 +47,12 @@ export const Checkout = () => {
     },
   })
 
-  const { handleSubmit, reset } = getUserAddressInformation
-  const { getUserAddress } = useContext(GetUserInformationFormContext)
+  const { handleSubmit, reset } = getCheckoutInformation
+  const { getOrderInformation } = useContext(GetOrderInformationFormContext)
   const navigate = useNavigate()
 
-  function handleGetUserAddressInformation(data: UserAddress) {
-    getUserAddress(data)
+  function handleGetOrderInformation(data: OrderInformation) {
+    getOrderInformation(data)
 
     reset()
 
@@ -59,10 +61,10 @@ export const Checkout = () => {
 
   return (
     <CheckoutContainer
-      onSubmit={handleSubmit(handleGetUserAddressInformation)}
+      onSubmit={handleSubmit(handleGetOrderInformation)}
       action=""
     >
-      <FormProvider {...getUserAddressInformation}>
+      <FormProvider {...getCheckoutInformation}>
         <CompleteYourOrder />
       </FormProvider>
       <SelectedCoffees />

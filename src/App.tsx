@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { CartContextProvider } from './contexts/CartContext'
-import { GetUserInformationFormProvider } from './contexts/GetUserInformationFormContext'
+import { GetOrderInformationFormProvider } from './contexts/GetOrderInformationFormContext'
 import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
@@ -11,9 +11,9 @@ export const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
         <CartContextProvider>
-          <GetUserInformationFormProvider>
+          <GetOrderInformationFormProvider>
             <Router />
-          </GetUserInformationFormProvider>
+          </GetOrderInformationFormProvider>
         </CartContextProvider>
         <GlobalStyle />
       </ThemeProvider>

@@ -1,10 +1,10 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
-type GetUserInformationFormContextProviderProps = {
+type GetOrderInformationFormContextProviderProps = {
   children: ReactNode
 }
 
-export type UserAddress = {
+export type OrderInformation = {
   cep: string
   street: string
   homeNum: string
@@ -12,24 +12,25 @@ export type UserAddress = {
   neighborhood: string
   city: string
   uf: string
+  formOfPayment: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
 }
 
-type GetUserInformationFormContextType = {
-  userInformation: UserAddress
+type GetOrderInformationFormContextType = {
+  orderInformation: OrderInformation
   paymentPreference: string
-  getUserAddress: (address: UserAddress) => void
-  getFormOfPayment: (formOfPaument: string) => void
+  getOrderInformation: (address: OrderInformation) => void
+  getFormOfPayment: (formOfPayment: string) => void
 }
 
-export const GetUserInformationFormContext = createContext(
-  {} as GetUserInformationFormContextType,
+export const GetOrderInformationFormContext = createContext(
+  {} as GetOrderInformationFormContextType,
 )
 
-export const GetUserInformationFormProvider = ({
+export const GetOrderInformationFormProvider = ({
   children,
-}: GetUserInformationFormContextProviderProps) => {
-  const [userInformation, setUserInformation] = useState<UserAddress>(
-    {} as UserAddress,
+}: GetOrderInformationFormContextProviderProps) => {
+  const [orderInformation, setOrderInformation] = useState<OrderInformation>(
+    {} as OrderInformation,
   )
   const [paymentPreference, setPaymentePreference] = useState('')
 
@@ -39,7 +40,7 @@ export const GetUserInformationFormProvider = ({
     )
 
     if (savedAddress) {
-      setUserInformation(JSON.parse(savedAddress))
+      setOrderInformation(JSON.parse(savedAddress))
     }
   }
 
@@ -47,8 +48,8 @@ export const GetUserInformationFormProvider = ({
     getItemsFromLocalStorage()
   }, [])
 
-  function getUserAddress(address: UserAddress) {
-    setUserInformation(address)
+  function getOrderInformation(address: OrderInformation) {
+    setOrderInformation(address)
 
     const addressJSON = JSON.stringify(address)
     localStorage.setItem(
@@ -69,15 +70,15 @@ export const GetUserInformationFormProvider = ({
   }
 
   return (
-    <GetUserInformationFormContext.Provider
+    <GetOrderInformationFormContext.Provider
       value={{
-        userInformation,
+        orderInformation,
         paymentPreference,
-        getUserAddress,
+        getOrderInformation,
         getFormOfPayment,
       }}
     >
       {children}
-    </GetUserInformationFormContext.Provider>
+    </GetOrderInformationFormContext.Provider>
   )
 }

@@ -9,13 +9,13 @@ import { MapPin, ShoppingCart } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../../contexts/CartContext'
-import { GetUserInformationFormContext } from '../../contexts/GetUserInformationFormContext'
+import { GetOrderInformationFormContext } from '../../contexts/GetOrderInformationFormContext'
 
 export const Header = () => {
   const { itemsInCart } = useContext(CartContext)
-  const { userInformation } = useContext(GetUserInformationFormContext)
+  const { orderInformation } = useContext(GetOrderInformationFormContext)
 
-  const { city, uf } = userInformation
+  const { city, uf } = orderInformation
 
   const itemsInCartLength = Object.values(itemsInCart).length
 

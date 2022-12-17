@@ -11,17 +11,13 @@ import {
 
 import SuccessIllustration from '../../assets/SuccessIllustration.svg'
 import { useContext } from 'react'
-import { GetUserInformationFormContext } from '../../contexts/GetUserInformationFormContext'
+import { GetOrderInformationFormContext } from '../../contexts/GetOrderInformationFormContext'
 
 export const Success = () => {
-  const { userInformation, paymentPreference } = useContext(
-    GetUserInformationFormContext,
-  )
+  const { orderInformation } = useContext(GetOrderInformationFormContext)
 
-  const { city, homeNum, street, neighborhood, uf, complement } =
-    userInformation
-
-  console.log('informações', userInformation)
+  const { city, homeNum, street, neighborhood, uf, formOfPayment } =
+    orderInformation
 
   return (
     <SucessPageContainer>
@@ -62,7 +58,7 @@ export const Success = () => {
             </IconWrapper>
             <TextWrapper>
               <p>Pagamento na entrega</p>
-              <span>{paymentPreference}</span>
+              <span>{formOfPayment}</span>
             </TextWrapper>
           </DeliveryItemWrapper>
         </DeliveryInformationWrapper>

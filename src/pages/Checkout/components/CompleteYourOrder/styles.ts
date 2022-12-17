@@ -1,3 +1,4 @@
+import MaskedInput from 'react-input-mask'
 import styled, { css } from 'styled-components'
 
 export const CompleteYourOrderContainer = styled.div`
@@ -117,8 +118,27 @@ const SoloInput = styled(BaseInput)`
   max-width: 249px;
 `
 
-export const CepInput = styled(SoloInput)`
+export const CepInput = styled(MaskedInput)`
   grid-area: cep;
+
+  max-width: 249px;
+
+  background-color: ${(props) => props.theme['base-input']};
+  border: 1px solid ${(props) => props.theme['base-button']};
+  border-radius: 8px;
+  padding: 0.875rem;
+  color: ${(props) => props.theme['base-text']};
+  max-width: 10.5rem;
+
+  ::placeholder {
+    color: ${(props) => props.theme['base-label']};
+  }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.lg}) {
+      max-width: 100%;
+    }
+  `}
 `
 export const StreetInput = styled(SoloInput)`
   grid-area: street;

@@ -22,11 +22,10 @@ const getOrderInformationValidationSchema = zod.object({
     .string()
     .min(2, 'UF deve ter 2 caracteres')
     .max(2, 'UF deve ter 2 caracteres'),
-  formOfPayment: zod.enum([
-    'Cartão de Crédito',
-    'Cartão de Débito',
-    'Dinheiro',
-  ]),
+  formOfPayment: zod.enum(
+    ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'],
+    { required_error: 'Selecione uma forma de pagamento' },
+  ),
 })
 
 export type GetOrderInformationData = zod.infer<

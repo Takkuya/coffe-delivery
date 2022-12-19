@@ -13,7 +13,8 @@ export const CheckoutContainer = styled.form`
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.lg}) {
       grid-template-columns: repeat(2, 1fr);
-
+    }
+    @media (min-width: ${breakpoints.xl}) {
       padding: 0 0;
     }
   `}

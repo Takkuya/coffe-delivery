@@ -29,16 +29,17 @@ export const CheckoutCoffeeOrderCard = ({
   const { name, price, img } = coffees[id]
 
   function increaseCoffeeQuantity() {
-    setCoffeeCurrentQuantity((state) => state + 1)
+    const newQuantity = coffeeCurrentQuantity + 1
 
-    // idk why i need this + 1
-    handleCoffeeCurrentQuantity(id, coffeeCurrentQuantity + 1)
+    setCoffeeCurrentQuantity(newQuantity)
+    handleCoffeeCurrentQuantity(id, newQuantity)
   }
 
   function decreaseCoffeeQuantity() {
-    setCoffeeCurrentQuantity((state) => state - 1)
+    const newQuantity = coffeeCurrentQuantity - 1
 
-    handleCoffeeCurrentQuantity(id, coffeeCurrentQuantity - 1)
+    setCoffeeCurrentQuantity(newQuantity)
+    handleCoffeeCurrentQuantity(id, newQuantity)
   }
 
   function deleteCoffeeFromCart() {
@@ -64,16 +65,17 @@ export const CheckoutCoffeeOrderCard = ({
             <button
               onClick={decreaseCoffeeQuantity}
               disabled={coffeeQuantityIsLessOrEqualThanOne}
+              type="button"
             >
               <Minus size={16} weight="bold" />
             </button>
             <span>{coffeeCurrentQuantity}</span>
-            <button onClick={increaseCoffeeQuantity}>
+            <button onClick={increaseCoffeeQuantity} type="button">
               <Plus size={16} weight="bold" />
             </button>
           </IncreaseOrDescreseCoffeeButtonWrapper>
 
-          <RemoveBtn onClick={deleteCoffeeFromCart}>
+          <RemoveBtn type="button" onClick={deleteCoffeeFromCart}>
             <Trash size={16} weight="bold" /> REMOVER
           </RemoveBtn>
         </ButtonsWrapper>

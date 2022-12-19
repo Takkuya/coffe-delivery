@@ -9,12 +9,13 @@ type Coffee = {
 }
 
 export type CoffeeInCartProps = Coffee & {
-  id: number
+  id: string
 }
 
-type HandleAddCoffeeToCartProps = Pick<CoffeeInCartProps, 'id' | 'quantity'> & {
-  price: number
-}
+type HandleAddCoffeeToCartProps = Pick<
+  CoffeeInCartProps,
+  'id' | 'quantity'
+> & {}
 
 type CoffeesInCart = Record<string, Coffee>
 
@@ -30,8 +31,11 @@ export const CartContext = createContext({} as CartContextType)
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [itemsInCart, setItemsInCart] = useState<CoffeesInCart>({})
 
-  function storeItemsInLocalStorage() {
-    const itemsInCartJSON = JSON.stringify(itemsInCart)
+  function storeItemsInLocalStorage(id: string, quantity?: number) {
+    const itemsInCartJSON = JSON.stringify({
+      ...itemsInCart,
+      [id]: { quantity },
+    })
 
     localStorage.setItem(
       '@coffee-delivery:add-coffee-to-cart-1.0.0',
@@ -54,26 +58,45 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   }, [])
 
   function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
-    setItemsInCart({
-      ...itemsInCart,
-      [id]: { quantity },
+    console.log('rodando')
+    console.log(id, quantity)
+
+    setItemsInCart((state) => {
+      return {
+        ...state,
+        [id]: { quantity },
+      }
     })
 
-    storeItemsInLocalStorage()
+    // console.log('valor', {
+    //   ...itemsInCart,
+    //   [id]: { quantity },
+    // })
+
+    storeItemsInLocalStorage(id, quantity)
   }
 
   function handleDeleteCoffeeFromCart(id: string) {
     delete itemsInCart[id]
 
-    storeItemsInLocalStorage()
+    setItemsInCart((state) => {
+      return {
+        ...state,
+      }
+    })
+
+    storeItemsInLocalStorage(id)
   }
 
-  function handleCoffeeCurrentQuantity(id: string, currentQuantity: number) {
-    setItemsInCart({
-      ...itemsInCart,
-      [id]: { quantity: currentQuantity },
+  function handleCoffeeCurrentQuantity(id: string, quantity: number) {
+    setItemsInCart((state) => {
+      return {
+        ...state,
+        [id]: { quantity },
+      }
     })
-    storeItemsInLocalStorage()
+
+    storeItemsInLocalStorage(id, quantity)
   }
 
   return (

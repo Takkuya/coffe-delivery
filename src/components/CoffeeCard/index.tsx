@@ -42,7 +42,6 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
   function addCoffeeToCart() {
     handleAddCoffeeToCart({
       id,
-      price,
       quantity: coffeeCount,
     })
   }

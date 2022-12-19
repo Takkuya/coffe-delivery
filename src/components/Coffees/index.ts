@@ -14,7 +14,7 @@ import macchiato from '../../assets/imgs/coffee/macchiato.png'
 import mochaccino from '../../assets/imgs/coffee/mochaccino.png'
 
 export type CoffeeType = {
-  id: number
+  id: string
   name: string
   badgets: string[]
   description: string
@@ -24,7 +24,7 @@ export type CoffeeType = {
 
 export const CoffeeList: CoffeeType[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Expresso Tradicional',
     badgets: ['Tradicional'],
     description: 'O tradicional café feito com água quente e grãos moídos',
@@ -32,7 +32,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 5.0,
   },
   {
-    id: 2,
+    id: '2',
     name: 'Expresso Americano',
     badgets: ['Tradicional'],
     description: 'Expresso diluído, menos intenso que o tradicional',
@@ -41,7 +41,7 @@ export const CoffeeList: CoffeeType[] = [
   },
 
   {
-    id: 3,
+    id: '3',
     name: 'Expresso Cremoso',
     badgets: ['Tradicional'],
     description: 'Café expresso tradicional com espuma cremosa',
@@ -50,7 +50,7 @@ export const CoffeeList: CoffeeType[] = [
   },
 
   {
-    id: 4,
+    id: '4',
     name: 'Expresso Gelado',
     badgets: ['Tradicional', 'Gelado'],
     description: 'Bebida preparada com café expresso e cubos de gelo',
@@ -58,7 +58,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 7.0,
   },
   {
-    id: 5,
+    id: '5',
     name: 'Café com Leite',
     badgets: ['Tradicional', 'Com Leite'],
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
@@ -66,7 +66,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 6.0,
   },
   {
-    id: 6,
+    id: '6',
     name: 'Latte',
     badgets: ['Tradicional', 'Com Leite'],
     description:
@@ -75,7 +75,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 8.0,
   },
   {
-    id: 7,
+    id: '7',
     name: 'Capuccino',
     badgets: ['Tradicional', 'Com Leite'],
     description:
@@ -84,7 +84,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 10.0,
   },
   {
-    id: 8,
+    id: '8',
     name: 'Macchiato',
     badgets: ['Tradicional', 'Com Leite'],
     description:
@@ -93,7 +93,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 9.0,
   },
   {
-    id: 9,
+    id: '9',
     name: 'Mocaccino',
     badgets: ['Tradicional', 'Com Leite'],
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
@@ -101,7 +101,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 9.0,
   },
   {
-    id: 10,
+    id: '10',
     name: 'Chocolate Quente',
     badgets: ['Especial', 'Com Leite'],
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
@@ -109,7 +109,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 10.0,
   },
   {
-    id: 11,
+    id: '11',
     name: 'Cubano',
     badgets: ['Especial', 'Alcoólico', 'Gelado'],
     description:
@@ -118,7 +118,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 10.0,
   },
   {
-    id: 12,
+    id: '12',
     name: 'Havaiano',
     badgets: ['Especial'],
     description: 'Bebida adocicada preparada com café e leite de coco',
@@ -126,7 +126,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 9.0,
   },
   {
-    id: 13,
+    id: '13',
     name: 'Árabe',
     badgets: ['Especial'],
     description: 'Bebida preparada com grãos de café árabe e especiarias',
@@ -134,7 +134,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 8.0,
   },
   {
-    id: 14,
+    id: '14',
     name: 'Irlandês',
     badgets: ['Especial', 'Alcoólico'],
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
@@ -142,7 +142,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 11.0,
   },
   {
-    id: 15,
+    id: '15',
     name: 'Latte Vegano',
     badgets: ['Especial', 'Vegano'],
     description:
@@ -151,7 +151,7 @@ export const CoffeeList: CoffeeType[] = [
     price: 11.0,
   },
   {
-    id: 16,
+    id: '16',
     name: 'Americano Gelado',
     badgets: ['Tradicional', 'Gelado'],
     description: 'Bebida preparada com café expresso americano e cubos de gelo',

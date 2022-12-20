@@ -10,6 +10,7 @@ import {
 } from '../../contexts/GetOrderInformationFormContext'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { CartContext } from '../../contexts/CartContext'
 
 const getOrderInformationValidationSchema = zod.object({
   cep: zod.string(),
@@ -46,12 +47,14 @@ export const Checkout = () => {
     },
   })
 
+  const { removeItemsFromLocalStorage } = useContext(CartContext)
   const { handleSubmit, reset } = getCheckoutInformation
   const { getOrderInformation } = useContext(GetOrderInformationFormContext)
   const navigate = useNavigate()
 
   function handleGetOrderInformation(data: OrderInformation) {
     getOrderInformation(data)
+    removeItemsFromLocalStorage()
 
     reset()
 

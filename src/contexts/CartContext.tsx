@@ -24,6 +24,7 @@ type CartContextType = {
   handleAddCoffeeToCart: ({ id, quantity }: HandleAddCoffeeToCartProps) => void
   handleDeleteCoffeeFromCart: (id: string) => void
   handleCoffeeCurrentQuantity: (id: string, currentQuantity: number) => void
+  removeItemsFromLocalStorage: () => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -57,21 +58,18 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     getItemsFromLocalStorage()
   }, [])
 
-  function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
-    console.log('rodando')
-    console.log(id, quantity)
+  function removeItemsFromLocalStorage() {
+    localStorage.removeItem('@coffee-delivery:add-coffee-to-cart-1.0.0')
+    setItemsInCart({})
+  }
 
+  function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
     setItemsInCart((state) => {
       return {
         ...state,
         [id]: { quantity },
       }
     })
-
-    // console.log('valor', {
-    //   ...itemsInCart,
-    //   [id]: { quantity },
-    // })
 
     storeItemsInLocalStorage(id, quantity)
   }
@@ -106,6 +104,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         handleAddCoffeeToCart,
         handleDeleteCoffeeFromCart,
         handleCoffeeCurrentQuantity,
+        removeItemsFromLocalStorage,
       }}
     >
       {children}

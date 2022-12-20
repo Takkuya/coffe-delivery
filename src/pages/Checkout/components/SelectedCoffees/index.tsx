@@ -83,8 +83,6 @@ export const SelectedCoffees = () => {
         <ConfirmOrderBtn disabled={isShoppingCartEmpty} type="submit">
           CONFIRMAR PEDIDO
         </ConfirmOrderBtn>
-        {/* <NavLink to="/success">
-        </NavLink> */}
       </SelectedCoffeesWrapper>
     </SelectedCoffeesContainer>
   )

@@ -21,14 +21,22 @@ type DeleteCoffeeFromCartProps = {
   payload: string
 }
 
-type ActionsProps = AddCoffeeToCartProps | DeleteCoffeeFromCartProps
+type DeleteCoffeeWhenSubmitedProps = {
+  type: typeof ActionTypes.DELETE_COFFEE_WHEN_SUBMITED
+  payload: {}
+}
+
+type ActionsProps =
+  | AddCoffeeToCartProps
+  | DeleteCoffeeFromCartProps
+  | DeleteCoffeeWhenSubmitedProps
 
 export const cartItemsReducer = (
   state: CartItemState,
   action: ActionsProps,
 ) => {
   const newState = { ...state }
-  console.log(action)
+  const initialState = {}
 
   switch (action.type) {
     case 'ADD_COFFEE_TO_CART':
@@ -39,6 +47,8 @@ export const cartItemsReducer = (
     case 'DELETE_COFFEE_FROM_CART':
       delete newState[action.payload]
       break
+    case 'DELETE_COFFEE_WHEN_SUBMITED':
+      return initialState
   }
 
   localStorage.setItem(

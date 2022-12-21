@@ -3,6 +3,7 @@ import { ItemInCart } from './reducer'
 export const ActionTypes = {
   ADD_COFFEE_TO_CART: 'ADD_COFFEE_TO_CART',
   DELETE_COFFEE_FROM_CART: 'DELETE_COFFEE_FROM_CART',
+  DELETE_COFFEE_WHEN_SUBMITED: 'DELETE_COFFEE_WHEN_SUBMITED',
 } as const
 
 export const addCoffeeToCart = (itemInCart: ItemInCart) => {
@@ -19,5 +20,12 @@ export const deleteCoffeeFromCart = (id: string) => {
   return {
     type: ActionTypes.DELETE_COFFEE_FROM_CART,
     payload: id,
+  }
+}
+
+export const deleteCoffeeWhenSubmited = () => {
+  return {
+    type: ActionTypes.DELETE_COFFEE_WHEN_SUBMITED,
+    payload: {},
   }
 }

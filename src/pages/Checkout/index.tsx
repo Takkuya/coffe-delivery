@@ -47,7 +47,8 @@ export const Checkout = () => {
     },
   })
 
-  const { removeItemsFromLocalStorage } = useContext(CartContext)
+  const { removeItemsFromLocalStorage, handleDeleteCoffeeWhenSubmited } =
+    useContext(CartContext)
   const { handleSubmit, reset } = getCheckoutInformation
   const { getOrderInformation } = useContext(GetOrderInformationFormContext)
   const navigate = useNavigate()
@@ -55,6 +56,7 @@ export const Checkout = () => {
   function handleGetOrderInformation(data: OrderInformation) {
     getOrderInformation(data)
     removeItemsFromLocalStorage()
+    handleDeleteCoffeeWhenSubmited()
 
     reset()
 

@@ -1,7 +1,8 @@
-import { createContext, ReactNode, useEffect, useReducer } from 'react'
+import { createContext, ReactNode, useReducer } from 'react'
 import {
   addCoffeeToCart,
   deleteCoffeeFromCart,
+  deleteCoffeeWhenSubmited,
 } from '../reducers/cartItems/actions'
 import { cartItemsReducer } from '../reducers/cartItems/reducer'
 
@@ -29,6 +30,7 @@ type CartContextType = {
   handleAddCoffeeToCart: ({ id, quantity }: HandleAddCoffeeToCartProps) => void
   handleDeleteCoffeeFromCart: (id: string) => void
   handleCoffeeCurrentQuantity: (id: string, currentQuantity: number) => void
+  handleDeleteCoffeeWhenSubmited: () => void
   removeItemsFromLocalStorage: () => void
 }
 
@@ -93,6 +95,10 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     storeItemsInLocalStorage(id, quantity)
   }
 
+  function handleDeleteCoffeeWhenSubmited() {
+    dispatch(deleteCoffeeWhenSubmited())
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -100,6 +106,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         handleAddCoffeeToCart,
         handleDeleteCoffeeFromCart,
         handleCoffeeCurrentQuantity,
+        handleDeleteCoffeeWhenSubmited,
         removeItemsFromLocalStorage,
       }}
     >

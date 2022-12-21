@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer } from 'react'
+import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import {
   addCoffeeToCart,
   deleteCoffeeFromCart,
@@ -42,10 +42,11 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
     if (savedItemsOnCart) {
       return JSON.parse(savedItemsOnCart)
+    } else {
+      return {}
     }
   })
 
-  //   const itemsInCart = {}
   const itemsInCart = itemsInCartState
 
   function storeItemsInLocalStorage(id: string, quantity?: number) {

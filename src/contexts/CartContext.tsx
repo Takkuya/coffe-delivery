@@ -1,5 +1,9 @@
-import { Action } from '@remix-run/router'
 import { createContext, ReactNode, useReducer } from 'react'
+import {
+  addCoffeeToCart,
+  deleteCoffeeFromCart,
+} from '../reducers/cartItems/actions'
+import { cartItemsReducer } from '../reducers/cartItems/reducer'
 
 type CartContextProviderProps = {
   children: ReactNode
@@ -20,10 +24,6 @@ type HandleAddCoffeeToCartProps = Pick<
 
 type CoffeesInCart = Record<string, Coffee>
 
-type ItemsInCartState = {
-  itemsInCart: CoffeesInCart
-}
-
 type CartContextType = {
   itemsInCart: CoffeesInCart
   handleAddCoffeeToCart: ({ id, quantity }: HandleAddCoffeeToCartProps) => void
@@ -32,57 +32,20 @@ type CartContextType = {
   removeItemsFromLocalStorage: () => void
 }
 
-type ActionType =
-  | {
-      type: 'ADD_COFFEE_TO_CART'
-      payload: {
-        id: string
-        quantity: number
-      }
-    }
-  | {
-      type: 'DELETE_COFFEE_FROM_CART'
-      payload: {
-        id: string
-      }
-    }
-
 export const CartContext = createContext({} as CartContextType)
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [itemsInCartState, dispatch] = useReducer(
-    (state: ItemsInCartState, action: ActionType) => {
-      const newState = { ...state }
+  const [itemsInCartState, dispatch] = useReducer(cartItemsReducer, {}, () => {
+    const savedItemsOnCart = localStorage.getItem(
+      '@coffee-delivery:add-coffee-to-cart-1.0.0',
+    )
 
-      if (action.type === 'ADD_COFFEE_TO_CART') {
-        newState[action.payload.id] = {
-          quantity: action.payload.quantity,
-        }
-      }
+    if (savedItemsOnCart) {
+      return JSON.parse(savedItemsOnCart)
+    }
+  })
 
-      if (action.type === 'DELETE_COFFEE_FROM_CART') {
-        delete newState[action.payload]
-      }
-
-      localStorage.setItem(
-        '@coffee-delivery:add-coffee-to-cart-1.0.0',
-        JSON.stringify(newState),
-      )
-
-      return newState
-    },
-    {},
-    () => {
-      const savedItemsOnCart = localStorage.getItem(
-        '@coffee-delivery:add-coffee-to-cart-1.0.0',
-      )
-
-      if (savedItemsOnCart) {
-        return JSON.parse(savedItemsOnCart)
-      }
-    },
-  )
-
+  //   const itemsInCart = {}
   const itemsInCart = itemsInCartState
 
   function storeItemsInLocalStorage(id: string, quantity?: number) {
@@ -99,32 +62,32 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
   function removeItemsFromLocalStorage() {
     localStorage.removeItem('@coffee-delivery:add-coffee-to-cart-1.0.0')
-    // setItemsInCart({})
   }
 
   function handleAddCoffeeToCart({ id, quantity }: HandleAddCoffeeToCartProps) {
-    dispatch({
-      type: 'ADD_COFFEE_TO_CART',
-      payload: { id, quantity },
-    })
+    const itemInCart = {
+      id,
+      quantity,
+    }
+
+    dispatch(addCoffeeToCart(itemInCart))
 
     storeItemsInLocalStorage(id, quantity)
   }
 
   function handleDeleteCoffeeFromCart(id: string) {
-    dispatch({
-      type: 'DELETE_COFFEE_FROM_CART',
-      payload: id,
-    })
+    dispatch(deleteCoffeeFromCart(id))
 
     storeItemsInLocalStorage(id)
   }
 
   function handleCoffeeCurrentQuantity(id: string, quantity: number) {
-    dispatch({
-      type: 'ADD_COFFEE_TO_CART',
-      payload: { id, quantity },
-    })
+    const itemInCart = {
+      id,
+      quantity,
+    }
+
+    dispatch(addCoffeeToCart(itemInCart))
 
     storeItemsInLocalStorage(id, quantity)
   }

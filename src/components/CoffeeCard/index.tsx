@@ -13,8 +13,10 @@ import {
   Price,
   PriceWrapper,
 } from './styles'
+import {
+  Minus, Plus, ShoppingCart
+} from '@/assets'
 
-import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { useContext, useState } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 import { CoffeeType } from '../Coffees'
@@ -46,7 +48,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
     })
   }
 
-  const coffeeCountIsLessOrEqualThanOne = coffeeCount <= 1
+  const isAtMinimumCoffeAmount = coffeeCount <= 1
 
   const priceFormatted = price.toFixed(2)
 
@@ -73,7 +75,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
           <IncreaseOrDescreseCoffeeButtonWrapper>
             <button
               onClick={decreaseCoffeeCount}
-              disabled={coffeeCountIsLessOrEqualThanOne}
+              disabled={isAtMinimumCoffeAmount}
             >
               <Minus size={16} weight="bold" />
             </button>
@@ -83,7 +85,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
             </button>
           </IncreaseOrDescreseCoffeeButtonWrapper>
           <CartBtn onClick={addCoffeeToCart}>
-            <ShoppingCartSimple size={22} weight="fill" />
+            <ShoppingCart size={22} weight="fill" />
           </CartBtn>
         </ButtonsWrapper>
       </FooterWrapper>

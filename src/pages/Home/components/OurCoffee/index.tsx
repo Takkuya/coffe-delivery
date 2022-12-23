@@ -3,7 +3,6 @@ import { CoffeeCard } from '@/components'
 import { CoffeeWrapper, OurCoffeeContainer } from './styles'
 
 export const OurCoffee = () => {
-
   return (
     <OurCoffeeContainer>
       <h2>Nossos Cafés</h2>

@@ -20,28 +20,27 @@ import macchiato from './coffee/macchiato.png'
 import mochaccino from './coffee/mochaccino.png'
 
 const coffee = {
-    americano,
-    arabe,
-    cafeComLeite,
-    cafeGelado,
-    cappucino,
-    chocolateQuente,
-    cubano,
-    expressoCremoso,
-    expresso,
-    havaiano,
-    irlandes,
-    latte,
-    macchiato,
-    mochaccino,
+  americano,
+  arabe,
+  cafeComLeite,
+  cafeGelado,
+  cappucino,
+  chocolateQuente,
+  cubano,
+  expressoCremoso,
+  expresso,
+  havaiano,
+  irlandes,
+  latte,
+  macchiato,
+  mochaccino,
 }
 
 export {
-    HeroSectionBackground,
-    HeroSectionCoffee,
-    coffee,
-    EmptyCart,
-    SuccessIllustration,
-    Logo
-
-}   
+  HeroSectionBackground,
+  HeroSectionCoffee,
+  coffee,
+  EmptyCart,
+  SuccessIllustration,
+  Logo,
+}

@@ -12,7 +12,7 @@ import {
   ProductsBtn,
 } from './styles'
 
-import {EmptyCart} from '@/assets'
+import { EmptyCart } from '@/assets'
 import { NavLink } from 'react-router-dom'
 import { useCartContext } from '@/context'
 import { Coffee } from '@/api'
@@ -20,16 +20,14 @@ import { Coffee } from '@/api'
 export const SelectedCoffees = () => {
   const cart = useCartContext()
 
-
-  const formattedTotalPrice =
-    cart.totalPrice.toFixed(2)
+  const formattedTotalPrice = cart.totalPrice.toFixed(2)
 
   const onIncrease = (id: Coffee['id']) => {
-    return () => cart.increaseCoffeeQuantity({id})
+    return () => cart.increaseCoffeeQuantity({ id })
   }
 
   const onDecrease = (id: Coffee['id']) => {
-    return () => cart.decreaseCoffeeQuantity({id})
+    return () => cart.decreaseCoffeeQuantity({ id })
   }
 
   const onRemove = (id: Coffee['id']) => {
@@ -54,7 +52,6 @@ export const SelectedCoffees = () => {
         ) : (
           <CardsWrapper>
             {cart.itemList.map((coffee) => {
-      
               return (
                 <CheckoutCoffeeOrderCard
                   key={coffee.id}

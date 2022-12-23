@@ -10,7 +10,7 @@ export const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
         <CartContextProvider>
-            <Router />
+          <Router />
         </CartContextProvider>
         <GlobalStyle />
       </ThemeProvider>

@@ -13,31 +13,30 @@ import {
 const formsOfPayment = [
   {
     icon: CreditCard,
-    value: PaymentMethods.CREDIT_CARD
+    value: PaymentMethods.CREDIT_CARD,
   },
   {
     icon: Bank,
-    value: PaymentMethods.DEBIT_CARD
+    value: PaymentMethods.DEBIT_CARD,
   },
   {
     icon: Money,
-    value: PaymentMethods.MONEY
+    value: PaymentMethods.MONEY,
   },
 ]
 
-type PaymentButtonProps = (typeof formsOfPayment)[number]
+type PaymentButtonProps = typeof formsOfPayment[number]
 
-const PaymentButton = (props:PaymentButtonProps) => {
-  const {value, icon: Icon} = props
+const PaymentButton = (props: PaymentButtonProps) => {
+  const { value, icon: Icon } = props
 
-  return <FormOfPaymentButton type="button" value={value}>
-    <Icon size={16} />
-    {value.toUpperCase()}
-  </FormOfPaymentButton>
+  return (
+    <FormOfPaymentButton type="button" value={value}>
+      <Icon size={16} />
+      {value.toUpperCase()}
+    </FormOfPaymentButton>
+  )
 }
-
-
-
 
 export const Payment = () => {
   const { control } = useFormContext<OrderFormData>()
@@ -63,11 +62,11 @@ export const Payment = () => {
               onValueChange={field.onChange}
               value={field.value}
             >
-              {
-                formsOfPayment.map(paymentForm => {
-                  return <PaymentButton {...paymentForm} key={paymentForm.value} />
-                })
-              }
+              {formsOfPayment.map((paymentForm) => {
+                return (
+                  <PaymentButton {...paymentForm} key={paymentForm.value} />
+                )
+              })}
             </FormOfPaymentWrapper>
           )
         }}

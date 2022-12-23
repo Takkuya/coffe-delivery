@@ -1,4 +1,2 @@
-
-
-export type {Coffee} from './data'
-export  {CoffeeList, coffees} from './data'
+export type { Coffee } from './data'
+export { CoffeeList, coffees } from './data'

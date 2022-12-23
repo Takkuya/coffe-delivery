@@ -15,7 +15,7 @@ export const Header = () => {
   const orderInformation = cart.order
 
   const { city, UF } = orderInformation
-  
+
   const hasCityName = typeof city === 'string' && !!city.trim()
 
   return (

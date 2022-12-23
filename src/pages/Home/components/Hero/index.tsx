@@ -8,12 +8,12 @@ import {
   BackgroundImg,
 } from './styles'
 import {
-  HeroSectionBackground, 
+  HeroSectionBackground,
   HeroSectionCoffee,
   ShoppingCart,
   Package,
   Timer,
-  Coffee
+  Coffee,
 } from '@/assets'
 
 export const Hero = () => {

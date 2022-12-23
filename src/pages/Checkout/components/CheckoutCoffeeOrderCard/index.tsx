@@ -10,17 +10,17 @@ import {
 import { Minus, Plus, Trash } from 'phosphor-react'
 import { CartContextValue } from '@/context'
 
-
 type CheckoutCoffeeOrderCardProps = {
   coffee: CartContextValue['itemList'][number]
-  onIncrease: () => void 
+  onIncrease: () => void
   onDecrease: () => void
-  onRemove: () => void 
+  onRemove: () => void
 }
 
-export const CheckoutCoffeeOrderCard = (props: CheckoutCoffeeOrderCardProps) => {
-  const {coffee,onDecrease,onRemove,onIncrease} = props
-
+export const CheckoutCoffeeOrderCard = (
+  props: CheckoutCoffeeOrderCardProps,
+) => {
+  const { coffee, onDecrease, onRemove, onIncrease } = props
 
   const { name, price, img, quantity } = coffee
 

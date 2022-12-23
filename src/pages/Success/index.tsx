@@ -7,12 +7,7 @@ import {
   SucessPageContainer,
   TextWrapper,
 } from './styles'
-import {
-  SuccessIllustration,
-  Timer,
-  CurrencyDollar,
-  MapPin
-} from '@/assets'
+import { SuccessIllustration, Timer, CurrencyDollar, MapPin } from '@/assets'
 import { useCartContext } from '@/context'
 
 export const Success = () => {

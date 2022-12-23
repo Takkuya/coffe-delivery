@@ -13,9 +13,7 @@ import {
   Price,
   PriceWrapper,
 } from './styles'
-import {
-  Minus, Plus, ShoppingCart
-} from '@/assets'
+import { Minus, Plus, ShoppingCart } from '@/assets'
 
 import { useState } from 'react'
 import { useCartContext } from '@/context'
@@ -26,7 +24,6 @@ type CoffeeCardProps = {
 }
 
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
-
   const cart = useCartContext()
   const [quantity, setQuantity] = useState(1)
 
@@ -43,7 +40,7 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
   function addCoffeeToCart() {
     cart.setCoffee({
       id: coffee.id,
-      quantity
+      quantity,
     })
   }
 

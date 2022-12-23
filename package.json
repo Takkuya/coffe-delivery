@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "npx eslint src --ext.ts,.tsx",
-    "lintFix": "npx eslint src --ext .ts,.tsx --fix"
+    "lintFix": "npx eslint  --ext ts,tsx --fix src"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",

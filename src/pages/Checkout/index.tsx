@@ -1,10 +1,10 @@
 import { CompleteYourOrder } from './components/CompleteYourOrder'
 import { SelectedCoffees } from './components/SelectedCoffees'
 import { CheckoutContainer } from './styles'
-import { FormProvider } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { orderFormSchema, useCartContext } from '@/context'
-import {useForm} from 'react-hook-form'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export const Checkout = () => {
@@ -12,25 +12,20 @@ export const Checkout = () => {
 
   const orderForm = useForm({
     resolver: zodResolver(orderFormSchema),
-    defaultValues: cart.order
+    defaultValues: cart.order,
   })
 
-  
   const navigate = useNavigate()
 
-
   const onSubmit = orderForm.handleSubmit((values) => {
-      cart.onSubmitOrder(values)
-      orderForm.reset()
+    cart.onSubmitOrder(values)
+    orderForm.reset()
 
-      navigate('/success')
+    navigate('/success')
   })
 
   return (
-    <CheckoutContainer
-      onSubmit={onSubmit}
-      action=""
-    >
+    <CheckoutContainer onSubmit={onSubmit} action="">
       <FormProvider {...orderForm}>
         <CompleteYourOrder />
       </FormProvider>

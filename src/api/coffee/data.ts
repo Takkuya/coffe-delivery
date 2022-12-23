@@ -1,4 +1,4 @@
-import { coffee } from "@/assets"
+import { coffee } from '@/assets'
 
 export type Coffee = {
   id: string

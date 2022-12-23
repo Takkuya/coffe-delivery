@@ -21,8 +21,7 @@ import {
 } from './styles'
 
 export const CompleteYourOrder = () => {
-  const { register, formState, control } =
-    useFormContext<OrderFormData>()
+  const { register, formState, control } = useFormContext<OrderFormData>()
 
   const errorsMessage = Object.entries(formState.errors).map(([_, error]) => {
     return error?.message

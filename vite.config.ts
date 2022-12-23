@@ -4,5 +4,8 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [tsconfigPaths(), react()]
+  plugins: [tsconfigPaths(), react()],
+  define: {
+    '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
+}
 })

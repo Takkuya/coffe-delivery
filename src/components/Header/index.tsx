@@ -4,39 +4,36 @@ import {
   HeaderContainer,
   LocationBadget,
 } from './styles'
-import LogoSvg from '../../assets/Logo.svg'
-import { MapPin, ShoppingCart } from 'phosphor-react'
+
+import { MapPin, ShoppingCart, Logo } from '@/assets'
 import { NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import { CartContext } from '../../contexts/CartContext'
-import { GetOrderInformationFormContext } from '../../contexts/GetOrderInformationFormContext'
+import { useCartContext } from '@/context'
 
 export const Header = () => {
-  const { itemsInCart } = useContext(CartContext)
-  const { orderInformation } = useContext(GetOrderInformationFormContext)
+  const cart = useCartContext()
 
-  const { city, uf } = orderInformation
+  const orderInformation = cart.order
 
-  const itemsInCartLength = Object.values(itemsInCart).length
-
-  const isCityNameEmpty = city === undefined
+  const { city, UF } = orderInformation
+  
+  const hasCityName = typeof city === 'string' && !!city.trim()
 
   return (
     <HeaderContainer>
       <NavLink to="/">
-        <img src={LogoSvg} alt="" />
+        <img src={Logo} alt="" />
       </NavLink>
       <nav>
-        {isCityNameEmpty ? null : (
+        {!hasCityName ? null : (
           <LocationBadget>
-            <MapPin size={22} weight="fill" /> {city}, {uf}
+            <MapPin size={22} weight="fill" /> {city}, {UF}
           </LocationBadget>
         )}
 
         <ButtonWrapper>
-          {itemsInCartLength !== 0 ? (
+          {!cart.isEmpty ? (
             <>
-              <CartItensQuantity>{itemsInCartLength}</CartItensQuantity>
+              <CartItensQuantity>{cart.itemCount}</CartItensQuantity>
               <NavLink to="/checkout">
                 <ShoppingCart size={22} weight="fill" />
               </NavLink>

@@ -8,45 +8,23 @@ import {
 } from './styles'
 
 import { Minus, Plus, Trash } from 'phosphor-react'
-import { useContext, useState } from 'react'
-import { CartContext } from '../../../../contexts/CartContext'
-import { coffees } from '../../../../components/Coffees'
+import { CartContextValue } from '@/context'
+
 
 type CheckoutCoffeeOrderCardProps = {
-  id: string
-  quantity: number
+  coffee: CartContextValue['itemList'][number]
+  onIncrease: () => void 
+  onDecrease: () => void
+  onRemove: () => void 
 }
 
-export const CheckoutCoffeeOrderCard = ({
-  id,
-  quantity,
-}: CheckoutCoffeeOrderCardProps) => {
-  const { handleDeleteCoffeeFromCart, handleCoffeeCurrentQuantity } =
-    useContext(CartContext)
+export const CheckoutCoffeeOrderCard = (props: CheckoutCoffeeOrderCardProps) => {
+  const {coffee,onDecrease,onRemove,onIncrease} = props
 
-  const [coffeeCurrentQuantity, setCoffeeCurrentQuantity] = useState(quantity)
 
-  const { name, price, img } = coffees[id]
+  const { name, price, img, quantity } = coffee
 
-  function increaseCoffeeQuantity() {
-    const newQuantity = coffeeCurrentQuantity + 1
-
-    setCoffeeCurrentQuantity(newQuantity)
-    handleCoffeeCurrentQuantity(id, newQuantity)
-  }
-
-  function decreaseCoffeeQuantity() {
-    const newQuantity = coffeeCurrentQuantity - 1
-
-    setCoffeeCurrentQuantity(newQuantity)
-    handleCoffeeCurrentQuantity(id, newQuantity)
-  }
-
-  function deleteCoffeeFromCart() {
-    handleDeleteCoffeeFromCart(id)
-  }
-
-  const coffeeQuantityIsLessOrEqualThanOne = coffeeCurrentQuantity <= 1
+  const isAtMinimumAmountForCoffee = quantity <= 1
 
   const totalPrice = price * quantity
 
@@ -63,19 +41,19 @@ export const CheckoutCoffeeOrderCard = ({
         <ButtonsWrapper>
           <IncreaseOrDescreseCoffeeButtonWrapper>
             <button
-              onClick={decreaseCoffeeQuantity}
-              disabled={coffeeQuantityIsLessOrEqualThanOne}
+              onClick={onDecrease}
+              disabled={isAtMinimumAmountForCoffee}
               type="button"
             >
               <Minus size={16} weight="bold" />
             </button>
-            <span>{coffeeCurrentQuantity}</span>
-            <button onClick={increaseCoffeeQuantity} type="button">
+            <span>{quantity}</span>
+            <button onClick={onIncrease} type="button">
               <Plus size={16} weight="bold" />
             </button>
           </IncreaseOrDescreseCoffeeButtonWrapper>
 
-          <RemoveBtn type="button" onClick={deleteCoffeeFromCart}>
+          <RemoveBtn type="button" onClick={onRemove}>
             <Trash size={16} weight="bold" /> REMOVER
           </RemoveBtn>
         </ButtonsWrapper>

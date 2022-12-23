@@ -17,54 +17,53 @@ import {
   Minus, Plus, ShoppingCart
 } from '@/assets'
 
-import { useContext, useState } from 'react'
-import { CartContext } from '../../contexts/CartContext'
-import { CoffeeType } from '../Coffees'
+import { useState } from 'react'
+import { useCartContext } from '@/context'
+import { Coffee } from '@/api'
 
 type CoffeeCardProps = {
-  Coffee: CoffeeType
+  coffee: Coffee
 }
 
-export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
-  const { id, img, badgets, name, description, price } = Coffee
-  const { handleAddCoffeeToCart } = useContext(CartContext)
+export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
 
-  const [coffeeCount, setCoffeeCount] = useState(1)
+  const cart = useCartContext()
+  const [quantity, setQuantity] = useState(1)
 
   function increaseCoffeeCount() {
-    setCoffeeCount(coffeeCount + 1)
+    setQuantity(quantity + 1)
   }
 
   function decreaseCoffeeCount() {
-    if (coffeeCount > 1) {
-      setCoffeeCount(coffeeCount - 1)
+    if (quantity > 1) {
+      setQuantity(quantity - 1)
     }
   }
 
   function addCoffeeToCart() {
-    handleAddCoffeeToCart({
-      id,
-      quantity: coffeeCount,
+    cart.setCoffee({
+      id: coffee.id,
+      quantity
     })
   }
 
-  const isAtMinimumCoffeAmount = coffeeCount <= 1
+  const isAtMinimumCoffeAmount = quantity <= 1
 
-  const priceFormatted = price.toFixed(2)
+  const priceFormatted = coffee.price.toFixed(2)
 
   return (
     <CoffeeCardContainer>
       <CoffeeImgWrapper>
-        <CoffeeImg src={img} alt="" />
+        <CoffeeImg src={coffee.img} alt="" />
         <CoffeeBadgetWrapper>
-          {badgets.map((badget: string) => {
-            return <CoffeeBadget key={badget}>{badget}</CoffeeBadget>
+          {coffee.categories.map((category) => {
+            return <CoffeeBadget key={category}>{category}</CoffeeBadget>
           })}
         </CoffeeBadgetWrapper>
       </CoffeeImgWrapper>
       <BodyWrapper>
-        <h3>{name}</h3>
-        <p>{description}</p>
+        <h3>{coffee.name}</h3>
+        <p>{coffee.description}</p>
       </BodyWrapper>
       <FooterWrapper>
         <PriceWrapper>
@@ -79,7 +78,7 @@ export const CoffeeCard = ({ Coffee }: CoffeeCardProps) => {
             >
               <Minus size={16} weight="bold" />
             </button>
-            <span>{coffeeCount}</span>
+            <span>{quantity}</span>
             <button onClick={increaseCoffeeCount}>
               <Plus size={16} weight="bold" />
             </button>

@@ -1,4 +1,3 @@
-import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import {
   DeliveryInfoWrapper,
   DeliveryItems,
@@ -8,14 +7,19 @@ import {
   HeroContentWrapper,
   BackgroundImg,
 } from './styles'
-
-import HomeCoffeImg from '../../../../assets/imgs/homeCoffeImg.png'
-import HomeBackgroundImg from '../../../../assets/imgs/BackgroundImg.png'
+import {
+  HeroSectionBackground, 
+  HeroSectionCoffee,
+  ShoppingCart,
+  Package,
+  Timer,
+  Coffee
+} from '@/assets'
 
 export const Hero = () => {
   return (
     <HeroContainer>
-      <BackgroundImg src={HomeBackgroundImg} alt="" />
+      <BackgroundImg src={HeroSectionBackground} alt="" />
 
       <HeroContentWrapper>
         <div>
@@ -55,7 +59,7 @@ export const Hero = () => {
           </DeliveryInfoWrapper>
         </div>
         <div>
-          <img src={HomeCoffeImg} alt="foda" />
+          <img src={HeroSectionCoffee} alt="foda" />
         </div>
       </HeroContentWrapper>
     </HeroContainer>

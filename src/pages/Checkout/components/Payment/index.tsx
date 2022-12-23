@@ -1,4 +1,5 @@
-import { Bank, CreditCard, CurrencyDollar, Money } from 'phosphor-react'
+import { Bank, CreditCard, CurrencyDollar, Money } from '@/assets'
+import { OrderFormData, PaymentMethods } from '@/context'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import {
@@ -9,8 +10,37 @@ import {
   FormOfPaymentButton,
 } from './styles'
 
+const formsOfPayment = [
+  {
+    icon: CreditCard,
+    value: PaymentMethods.CREDIT_CARD
+  },
+  {
+    icon: Bank,
+    value: PaymentMethods.DEBIT_CARD
+  },
+  {
+    icon: Money,
+    value: PaymentMethods.MONEY
+  },
+]
+
+type PaymentButtonProps = (typeof formsOfPayment)[number]
+
+const PaymentButton = (props:PaymentButtonProps) => {
+  const {value, icon: Icon} = props
+
+  return <FormOfPaymentButton type="button" value={value}>
+    <Icon size={16} />
+    {value.toUpperCase()}
+  </FormOfPaymentButton>
+}
+
+
+
+
 export const Payment = () => {
-  const { control } = useFormContext()
+  const { control } = useFormContext<OrderFormData>()
 
   return (
     <PaymentContainer>
@@ -25,25 +55,19 @@ export const Payment = () => {
       </PaymentWrapper>
       <Controller
         control={control}
-        name="formOfPayment"
+        name="paymentMethod"
         render={({ field }) => {
+          console.log(field.value)
           return (
             <FormOfPaymentWrapper
               onValueChange={field.onChange}
               value={field.value}
             >
-              <FormOfPaymentButton type="button" value="Cartão de Crédito">
-                <CreditCard size={16} />
-                CARTÃO DE CRÉDITO
-              </FormOfPaymentButton>
-              <FormOfPaymentButton type="button" value="Cartão de Débito">
-                <Bank size={16} />
-                CARTÃO DE DÉBITO
-              </FormOfPaymentButton>
-              <FormOfPaymentButton type="button" value="Dinheiro">
-                <Money size={16} />
-                DINHEIRO
-              </FormOfPaymentButton>
+              {
+                formsOfPayment.map(paymentForm => {
+                  return <PaymentButton {...paymentForm} key={paymentForm.value} />
+                })
+              }
             </FormOfPaymentWrapper>
           )
         }}

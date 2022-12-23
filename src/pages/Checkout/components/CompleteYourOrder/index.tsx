@@ -1,6 +1,6 @@
+import { OrderFormData } from '@/context'
 import { MapPinLine } from 'phosphor-react'
 import { useFormContext, Controller } from 'react-hook-form'
-import { GetOrderInformationData } from '../..'
 import { Payment } from '../Payment'
 import {
   AddressWrapper,
@@ -22,7 +22,7 @@ import {
 
 export const CompleteYourOrder = () => {
   const { register, formState, control } =
-    useFormContext<GetOrderInformationData>()
+    useFormContext<OrderFormData>()
 
   const errorsMessage = Object.entries(formState.errors).map(([_, error]) => {
     return error?.message
@@ -42,7 +42,7 @@ export const CompleteYourOrder = () => {
         <FormWrapper>
           <Controller
             control={control}
-            name="cep"
+            name="CEP"
             render={({ field }) => (
               <CepInput
                 placeholder="CEP"
@@ -58,7 +58,7 @@ export const CompleteYourOrder = () => {
             type="number"
             min={1}
             placeholder="Número"
-            {...register('homeNum')}
+            {...register('number')}
           />
           <ComplementInput
             type="text"
@@ -74,7 +74,7 @@ export const CompleteYourOrder = () => {
           <UfInput
             type="text"
             placeholder="UF"
-            {...register('uf')}
+            {...register('UF')}
             maxLength={2}
           />
         </FormWrapper>

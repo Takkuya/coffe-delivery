@@ -1,6 +1,3 @@
-import { useContext } from 'react'
-import { coffees } from '../../../../components/Coffees'
-import { CartContext } from '../../../../contexts/CartContext'
 import { CheckoutCoffeeOrderCard } from '../CheckoutCoffeeOrderCard'
 import {
   SelectedCoffeesContainer,
@@ -15,35 +12,37 @@ import {
   ProductsBtn,
 } from './styles'
 
-import EmptyCard from '../../../../assets/EmptyCart.svg'
+import {EmptyCart} from '@/assets'
 import { NavLink } from 'react-router-dom'
+import { useCartContext } from '@/context'
+import { Coffee } from '@/api'
 
 export const SelectedCoffees = () => {
-  const { itemsInCart } = useContext(CartContext)
+  const cart = useCartContext()
 
-  const itemsInCartArray = Object.entries(itemsInCart)
 
-  const totalPriceOfAllCoffeesInCart = itemsInCartArray.reduce(
-    (previousValue, nextValue) => {
-      const [id, { quantity }] = nextValue
+  const formattedTotalPrice =
+    cart.totalPrice.toFixed(2)
 
-      return previousValue + coffees[id].price * quantity
-    },
-    0,
-  )
+  const onIncrease = (id: Coffee['id']) => {
+    return () => cart.increaseCoffeeQuantity({id})
+  }
 
-  const totalPriceOfAllCoffeesInCartFormatted =
-    totalPriceOfAllCoffeesInCart.toFixed(2)
+  const onDecrease = (id: Coffee['id']) => {
+    return () => cart.decreaseCoffeeQuantity({id})
+  }
 
-  const isShoppingCartEmpty = itemsInCartArray.length === 0
+  const onRemove = (id: Coffee['id']) => {
+    return () => cart.deleteCoffee(id)
+  }
 
   return (
     <SelectedCoffeesContainer>
       <h3>Cafés selecionados</h3>
       <SelectedCoffeesWrapper>
-        {isShoppingCartEmpty ? (
+        {cart.isEmpty ? (
           <EmptyCartWrapper>
-            <img src={EmptyCard} alt="" />
+            <img src={EmptyCart} alt="" />
             <TextsWrapper>
               <h4>Seu carrinho está vazio</h4>
               <p>Parece que você não adicionou nada ao seu carrinho</p>
@@ -54,12 +53,15 @@ export const SelectedCoffees = () => {
           </EmptyCartWrapper>
         ) : (
           <CardsWrapper>
-            {itemsInCartArray.map(([id, coffee]) => {
+            {cart.itemList.map((coffee) => {
+      
               return (
                 <CheckoutCoffeeOrderCard
-                  key={id}
-                  id={id}
-                  quantity={coffee.quantity}
+                  key={coffee.id}
+                  coffee={coffee}
+                  onIncrease={onIncrease(coffee.id)}
+                  onDecrease={onDecrease(coffee.id)}
+                  onRemove={onRemove(coffee.id)}
                 />
               )
             })}
@@ -69,18 +71,18 @@ export const SelectedCoffees = () => {
         <CheckoutInfoWrapper>
           <PriceWrapper>
             <span>Total de itens</span>
-            <span>R$ {totalPriceOfAllCoffeesInCartFormatted}</span>
+            <span>R$ {formattedTotalPrice}</span>
           </PriceWrapper>
           <PriceWrapper>
             <span>Entrega</span> <span>R$ 0.00</span>
           </PriceWrapper>
           <TotalPriceWrapper>
             <span>Total</span>
-            <span>R$ {totalPriceOfAllCoffeesInCartFormatted}</span>
+            <span>R$ {formattedTotalPrice}</span>
           </TotalPriceWrapper>
         </CheckoutInfoWrapper>
 
-        <ConfirmOrderBtn disabled={isShoppingCartEmpty} type="submit">
+        <ConfirmOrderBtn disabled={cart.isEmpty} type="submit">
           CONFIRMAR PEDIDO
         </ConfirmOrderBtn>
       </SelectedCoffeesWrapper>

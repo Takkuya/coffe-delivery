@@ -76,7 +76,8 @@ export const FormOfPaymentButton = styled(RadioGroup.Item)`
     background: ${(props) => props.theme['base-hover']};
   }
 
-  :focus {
+  &[data-state="checked"] {
     box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
-  }
+  }  
+  
 `

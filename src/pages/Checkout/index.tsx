@@ -1,74 +1,37 @@
 import { CompleteYourOrder } from './components/CompleteYourOrder'
 import { SelectedCoffees } from './components/SelectedCoffees'
 import { CheckoutContainer } from './styles'
-import * as zod from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import {
-  GetOrderInformationFormContext,
-  OrderInformation,
-} from '../../contexts/GetOrderInformationFormContext'
-import { useContext } from 'react'
+import { FormProvider } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { CartContext } from '../../contexts/CartContext'
-
-const getOrderInformationValidationSchema = zod.object({
-  cep: zod.string(),
-  street: zod.string().min(1, 'Nome da rua obrigatório'),
-  homeNum: zod.string().min(1, 'Número obrigatório'),
-  complement: zod.string().optional(),
-  neighborhood: zod.string().min(1, 'Bairro obrigatório'),
-  city: zod.string().min(1, 'Cidade obrigatório'),
-  uf: zod
-    .string()
-    .min(2, 'UF deve ter 2 caracteres')
-    .max(2, 'UF deve ter 2 caracteres'),
-  formOfPayment: zod.enum(
-    ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'],
-    { required_error: 'Selecione uma forma de pagamento' },
-  ),
-})
-
-export type GetOrderInformationData = zod.infer<
-  typeof getOrderInformationValidationSchema
->
+import { orderFormSchema, useCartContext } from '@/context'
+import {useForm} from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export const Checkout = () => {
-  const getCheckoutInformation = useForm<GetOrderInformationData>({
-    resolver: zodResolver(getOrderInformationValidationSchema),
-    defaultValues: {
-      cep: '',
-      street: '',
-      homeNum: '',
-      complement: '',
-      neighborhood: '',
-      city: '',
-      uf: '',
-    },
+  const cart = useCartContext()
+
+  const orderForm = useForm({
+    resolver: zodResolver(orderFormSchema),
+    defaultValues: cart.order
   })
 
-  const { removeItemsFromLocalStorage, handleDeleteCoffeeWhenSubmited } =
-    useContext(CartContext)
-  const { handleSubmit, reset } = getCheckoutInformation
-  const { getOrderInformation } = useContext(GetOrderInformationFormContext)
+  
   const navigate = useNavigate()
 
-  function handleGetOrderInformation(data: OrderInformation) {
-    getOrderInformation(data)
-    removeItemsFromLocalStorage()
-    handleDeleteCoffeeWhenSubmited()
 
-    reset()
+  const onSubmit = orderForm.handleSubmit((values) => {
+      cart.onSubmitOrder(values)
+      orderForm.reset()
 
-    navigate('/success')
-  }
+      navigate('/success')
+  })
 
   return (
     <CheckoutContainer
-      onSubmit={handleSubmit(handleGetOrderInformation)}
+      onSubmit={onSubmit}
       action=""
     >
-      <FormProvider {...getCheckoutInformation}>
+      <FormProvider {...orderForm}>
         <CompleteYourOrder />
       </FormProvider>
       <SelectedCoffees />

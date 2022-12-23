@@ -1,4 +1,3 @@
-import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import {
   ConfirmedOrderWrapper,
   DeliveryInformationWrapper,
@@ -8,16 +7,16 @@ import {
   SucessPageContainer,
   TextWrapper,
 } from './styles'
-
-import SuccessIllustration from '../../assets/SuccessIllustration.svg'
-import { useContext } from 'react'
-import { GetOrderInformationFormContext } from '../../contexts/GetOrderInformationFormContext'
+import {
+  SuccessIllustration,
+  Timer,
+  CurrencyDollar,
+  MapPin
+} from '@/assets'
+import { useCartContext } from '@/context'
 
 export const Success = () => {
-  const { orderInformation } = useContext(GetOrderInformationFormContext)
-
-  const { city, homeNum, street, neighborhood, uf, formOfPayment } =
-    orderInformation
+  const orderInfo = useCartContext().order
 
   return (
     <SucessPageContainer>
@@ -35,11 +34,11 @@ export const Success = () => {
               <p>
                 Entrega em{' '}
                 <span>
-                  {street}, {homeNum}
+                  {orderInfo.street}, {orderInfo.number}
                 </span>
               </p>
               <p>
-                {neighborhood} - {city}, {uf}
+                {orderInfo.neighborhood} - {orderInfo.city}, {orderInfo.UF}
               </p>
             </TextWrapper>
           </DeliveryItemWrapper>
@@ -58,7 +57,7 @@ export const Success = () => {
             </IconWrapper>
             <TextWrapper>
               <p>Pagamento na entrega</p>
-              <span>{formOfPayment}</span>
+              <span>{orderInfo.paymentMethod}</span>
             </TextWrapper>
           </DeliveryItemWrapper>
         </DeliveryInformationWrapper>

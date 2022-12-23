@@ -1,7 +1,14 @@
-import { Minus, Plus, ShoppingCartSimple as ShoppingCart } from 'phosphor-react'
-
-export {
+export { 
     Minus,
     Plus,
-    ShoppingCart
-}
+    ShoppingCartSimple,
+    Coffee,
+    Package,
+    ShoppingCart,
+    CurrencyDollar,
+    MapPin,
+    Timer,
+    Bank,
+    CreditCard,
+    Money
+} from 'phosphor-react'

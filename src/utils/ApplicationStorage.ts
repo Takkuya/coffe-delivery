@@ -1,5 +1,7 @@
-import { AppName, AppVersion, LocalStorageKeys } from "@/constants"
-import { CartContextValue } from "@/contexts/Cart/types"
+import { ReactState } from "@/@types"
+import { AppName, AppVersion } from "@/constants"
+import { CartContextValue, OrderFormData, PaymentMethods } from "@/context"
+import { useState } from "react"
 
 type KeyManager<Value, DefaultValue> = {
     key: string
@@ -10,7 +12,8 @@ type KeyManager<Value, DefaultValue> = {
 
 
 function createKeyManager<ValueType = any, DefaultValue extends ValueType = any>(forKey: string, defaultValue: DefaultValue): KeyManager<ValueType, DefaultValue>{
-    const key = `${AppName}-${AppVersion}@${forKey}`
+    const serializedAppName = AppName.replace(/\s/g, '-').toLowerCase()
+    const key = `${serializedAppName}-${AppVersion}@${forKey}`
 
 
     return {
@@ -51,5 +54,29 @@ function createKeyManager<ValueType = any, DefaultValue extends ValueType = any>
 
 
 export const ApplicationStorage = {
-    cart: createKeyManager<CartContextValue['items']>('cart', {})
+    cart: createKeyManager<CartContextValue['items']>('cart', {}),
+    order: createKeyManager<OrderFormData>('order', {})
 }
+
+export function useLocalStorageState<
+    T extends KeyManager<any,any>,
+    Value = T extends KeyManager<infer V, infer DV> ? V | DV : never
+>(key: T): ReactState<Value> {
+    const [state, _setState] = useState(key.get)
+
+    const setState:typeof _setState = (valueOrFunction) => {
+        let newValue = state
+
+        if(typeof valueOrFunction === 'function'){
+            newValue = valueOrFunction(newValue)
+        }else{
+            newValue = valueOrFunction
+        }
+
+        _setState(valueOrFunction)
+
+        key.set(newValue)
+    }
+
+    return [state, setState]
+}   
